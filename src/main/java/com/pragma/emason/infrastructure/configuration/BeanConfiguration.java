@@ -5,7 +5,7 @@ import com.pragma.emason.domain.api.CategoryService;
 import com.pragma.emason.domain.usecase.CategoryUseCase;
 import com.pragma.emason.infrastructure.output.jpa.adapter.CategoryJpaAdapter;
 import com.pragma.emason.infrastructure.output.jpa.mapper.CategoryEntityMapper;
-import com.pragma.emason.infrastructure.output.jpa.respository.ICategoryRepository;
+import com.pragma.emason.infrastructure.output.jpa.repository.ICategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

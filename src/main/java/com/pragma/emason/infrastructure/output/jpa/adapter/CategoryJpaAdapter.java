@@ -4,7 +4,7 @@ import com.pragma.emason.domain.model.Category;
 import com.pragma.emason.domain.spi.CategoryRepository;
 import com.pragma.emason.infrastructure.exception.CategoryAlreadyExistsException;
 import com.pragma.emason.infrastructure.output.jpa.mapper.CategoryEntityMapper;
-import com.pragma.emason.infrastructure.output.jpa.respository.ICategoryRepository;
+import com.pragma.emason.infrastructure.output.jpa.repository.ICategoryRepository;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
