@@ -33,6 +33,15 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
+	// Bean Validation API
+	implementation 'javax.validation:validation-api:2.0.1.Final'
+
+	// Hibernate Validator (implementación de referencia)
+	implementation 'org.hibernate.validator:hibernate-validator:6.1.3.Final'
+
+	// Necesario para usar las validaciones de Bean Validation en Spring Boot
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
 	annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.2.Final'
 }
 

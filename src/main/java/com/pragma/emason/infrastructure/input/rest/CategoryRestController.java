@@ -19,6 +19,9 @@ public class CategoryRestController {
 
     @PostMapping("/")
     public ResponseEntity<Void> saveCategory(@RequestBody CategoryRequest categoryRequest){
+        /*if (categoryRequest.getName().length() > 50) {
+            throw new IllegalArgumentException("Category name must not exceed 50 characters");
+        }*/
         iCategoryHandler.saveCategoryInDataBase(categoryRequest);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

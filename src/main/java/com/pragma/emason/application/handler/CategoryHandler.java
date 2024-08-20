@@ -22,6 +22,12 @@ public class CategoryHandler implements ICategoryHandler{
     @Override
     public void saveCategoryInDataBase(CategoryRequest categoryRequest) {
         Category category = categoryRequestMapper.toCategory(categoryRequest);
+        if(category.getName().length() > 50){
+            throw new IllegalArgumentException("Category name must not exceed 50 characters");
+        }
+        if(category.getDescription().length() > 90){
+            throw new IllegalArgumentException("Category description must not exceed 90 characters");
+        }
         categoryService.saveCategory(category);
     }
 
