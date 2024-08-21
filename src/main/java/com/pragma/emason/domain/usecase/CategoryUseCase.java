@@ -1,19 +1,19 @@
 package com.pragma.emason.domain.usecase;
 
 import com.pragma.emason.domain.model.Category;
-import com.pragma.emason.domain.api.CategoryService;
-import com.pragma.emason.domain.spi.CategoryRepository;
+import com.pragma.emason.domain.api.ICategoryService;
+import com.pragma.emason.domain.spi.ICategoryRepository;
 
-public class CategoryUseCase implements CategoryService {
-    private final CategoryRepository categoryRepository;
+public class CategoryUseCase implements ICategoryService {
+    private final ICategoryRepository iCategoryRepository;
 
-    public CategoryUseCase(CategoryRepository categoryRepository) {
-        this.categoryRepository = categoryRepository;
+    public CategoryUseCase(ICategoryRepository iCategoryRepository) {
+        this.iCategoryRepository = iCategoryRepository;
     }
 
-
+    //Aqui van las validaciones o la logica de negocio
     @Override
     public void saveCategory(Category category) {
-        this.categoryRepository.saveCategory(category);
+        this.iCategoryRepository.saveCategory(category);
     }
 }

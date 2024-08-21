@@ -1,22 +1,21 @@
 package com.pragma.emason.infrastructure.output.jpa.adapter;
 
 import com.pragma.emason.domain.model.Category;
-import com.pragma.emason.domain.spi.CategoryRepository;
+import com.pragma.emason.domain.spi.ICategoryRepository;
 import com.pragma.emason.infrastructure.exception.CategoryAlreadyExistsException;
-import com.pragma.emason.infrastructure.output.jpa.mapper.CategoryEntityMapper;
-import com.pragma.emason.infrastructure.output.jpa.repository.ICategoryRepository;
+import com.pragma.emason.infrastructure.output.jpa.mapper.ICategoryEntityMapper;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class CategoryJpaAdapter implements CategoryRepository {
-    private final ICategoryRepository iCategoryRepository;
-    private final CategoryEntityMapper categoryEntityMapper;
+public class CategoryJpaAdapter implements ICategoryRepository {
+    private final com.pragma.emason.infrastructure.output.jpa.repository.ICategoryRepository iCategoryRepository;
+    private final ICategoryEntityMapper iCategoryEntityMapper;
 
     @Override
     public void saveCategory(Category category) {
         if(iCategoryRepository.findById(category.getId()).isPresent()){
             throw new CategoryAlreadyExistsException();
         }
-        iCategoryRepository.save(categoryEntityMapper.toEntity(category));
+        iCategoryRepository.save(iCategoryEntityMapper.toEntity(category));
     }
 }

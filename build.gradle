@@ -26,23 +26,17 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.mapstruct:mapstruct:1.5.2.Final'
+	implementation 'org.mapstruct:mapstruct:1.5.3.Final'
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	// Bean Validation API
 	implementation 'javax.validation:validation-api:2.0.1.Final'
-
-	// Hibernate Validator (implementación de referencia)
-	implementation 'org.hibernate.validator:hibernate-validator:6.1.3.Final'
-
-	// Necesario para usar las validaciones de Bean Validation en Spring Boot
-	implementation 'org.springframework.boot:spring-boot-starter-validation'
-
-	annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.2.Final'
+	annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.3.Final'
 }
 
 tasks.named('test') {

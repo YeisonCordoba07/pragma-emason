@@ -6,9 +6,11 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CategoryRequest {
+public class CategoryResponseDTO {
     private Integer id;
+
     private String name;
+
     private String description;
 
 }

@@ -1,9 +1,9 @@
-package com.pragma.emason.domain.api;
+package com.pragma.emason.domain.spi;
 
 import com.pragma.emason.domain.model.Category;
 
 
-public interface CategoryService {
+public interface ICategoryRepository {
 
     void saveCategory(Category category);
 
