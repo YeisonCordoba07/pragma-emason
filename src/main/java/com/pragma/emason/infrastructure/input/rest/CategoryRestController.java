@@ -20,7 +20,7 @@ public class CategoryRestController {
 
     private final ICategoryHandler iCategoryHandler;
 
-    @PostMapping("/")
+    @PostMapping
     public ResponseEntity<Void> saveCategory(@Valid @RequestBody CategoryRequestDTO categoryRequestDTO){
 
         iCategoryHandler.saveCategoryInDataBase(categoryRequestDTO);

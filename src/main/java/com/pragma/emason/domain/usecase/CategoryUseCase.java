@@ -1,5 +1,6 @@
 package com.pragma.emason.domain.usecase;
 
+import com.pragma.emason.domain.exception.CategoryNameAlreadyExistsException;
 import com.pragma.emason.domain.model.Category;
 import com.pragma.emason.domain.api.ICategoryService;
 import com.pragma.emason.domain.spi.ICategoryRepository;
@@ -15,7 +16,7 @@ public class CategoryUseCase implements ICategoryService {
     @Override
     public void saveCategory(Category category) {
         if(this.iCategoryRepository.getCategoryByName(category.getName()) != null){
-            return;
+            throw new CategoryNameAlreadyExistsException();
         }
         this.iCategoryRepository.saveCategory(category);
     }
