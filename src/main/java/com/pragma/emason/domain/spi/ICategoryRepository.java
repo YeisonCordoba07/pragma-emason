@@ -8,4 +8,5 @@ public interface ICategoryRepository {
     void saveCategory(Category category);
 
     //List<Category> getAllCategory();
+    Category getCategoryByName(String name);
 }

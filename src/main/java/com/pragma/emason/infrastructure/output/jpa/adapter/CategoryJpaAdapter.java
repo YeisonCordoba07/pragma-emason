@@ -16,6 +16,12 @@ public class CategoryJpaAdapter implements ICategoryRepository {
         if(iCategoryRepository.findById(category.getId()).isPresent()){
             throw new CategoryAlreadyExistsException();
         }
+
         iCategoryRepository.save(iCategoryEntityMapper.toEntity(category));
+    }
+
+    @Override
+    public Category getCategoryByName(String name) {
+        return iCategoryEntityMapper.toCategory(iCategoryRepository.findCategoryEntityByName(name));
     }
 }
