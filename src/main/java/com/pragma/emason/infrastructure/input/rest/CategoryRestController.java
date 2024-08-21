@@ -27,7 +27,7 @@ public class CategoryRestController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @GetMapping("/name/{name}")
+    @GetMapping("/{name}")
     public ResponseEntity<CategoryResponseDTO> getCategoryByName(@PathVariable String name){
         return ResponseEntity.ok(iCategoryHandler.getCategoryByName(name));
     }

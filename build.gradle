@@ -34,8 +34,6 @@ dependencies {
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
-	// Bean Validation API
-	implementation 'javax.validation:validation-api:2.0.1.Final'
 	annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.3.Final'
 }
 
