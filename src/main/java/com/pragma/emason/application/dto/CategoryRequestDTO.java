@@ -15,12 +15,12 @@ public class CategoryRequestDTO {
 
     @NotNull
     @NotBlank(message = "Name cannot be null blank")
-    @Size(min = 2, max = 50, message = "Name must be less than or equal to 50 characters")
+    @Size(max = 50, message = "Name must be less than or equal to 50 characters")
     private String name;
 
     @NotNull
     @NotBlank(message = "Name cannot be null blank")
-    @Size(min = 2, max = 90, message = "Description must be less than or equal to 50 characters")
+    @Size(max = 90, message = "Description must be less than or equal to 50 characters")
     private String description;
 
 }

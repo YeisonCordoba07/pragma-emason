@@ -20,12 +20,14 @@ public class CategoryRestController {
 
     private final ICategoryHandler iCategoryHandler;
 
+
     @PostMapping
     public ResponseEntity<Void> saveCategory(@Valid @RequestBody CategoryRequestDTO categoryRequestDTO){
 
         iCategoryHandler.saveCategoryInDataBase(categoryRequestDTO);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
+
 
     @GetMapping("/{name}")
     public ResponseEntity<CategoryResponseDTO> getCategoryByName(@PathVariable String name){

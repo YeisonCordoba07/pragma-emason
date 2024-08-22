@@ -12,7 +12,7 @@ public class CategoryUseCase implements ICategoryService {
         this.iCategoryRepository = iCategoryRepository;
     }
 
-    //Aqui van las validaciones o la logica de negocio
+
     @Override
     public void saveCategory(Category category) {
         if(this.iCategoryRepository.getCategoryByName(category.getName()) != null){
