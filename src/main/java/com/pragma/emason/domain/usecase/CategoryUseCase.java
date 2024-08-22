@@ -16,7 +16,7 @@ public class CategoryUseCase implements ICategoryService {
     @Override
     public void saveCategory(Category category) {
         if(this.iCategoryRepository.getCategoryByName(category.getName()) != null){
-            throw new CategoryNameAlreadyExistsException();
+            throw new CategoryNameAlreadyExistsException("A category with this name already exists.");
         }
         this.iCategoryRepository.saveCategory(category);
     }
