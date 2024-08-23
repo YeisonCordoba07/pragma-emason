@@ -5,6 +5,8 @@ import com.pragma.emason.domain.model.Category;
 import com.pragma.emason.domain.api.ICategoryService;
 import com.pragma.emason.domain.spi.ICategoryRepository;
 
+import java.util.List;
+
 public class CategoryUseCase implements ICategoryService {
     private final ICategoryRepository iCategoryRepository;
 
@@ -19,6 +21,11 @@ public class CategoryUseCase implements ICategoryService {
             throw new CategoryNameAlreadyExistsException("A category with this name already exists.");
         }
         this.iCategoryRepository.saveCategory(category);
+    }
+
+    @Override
+    public List<Category> getAllCategories() {
+        return iCategoryRepository.getAllCategories();
     }
 
     @Override

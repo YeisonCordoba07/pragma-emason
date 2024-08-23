@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/category")
@@ -32,5 +34,10 @@ public class CategoryRestController {
     @GetMapping("/{name}")
     public ResponseEntity<CategoryResponseDTO> getCategoryByName(@PathVariable String name){
         return ResponseEntity.ok(iCategoryHandler.getCategoryByName(name));
+    }
+
+    @GetMapping("/getAll")
+    public ResponseEntity<List<CategoryResponseDTO>> getCategories(){
+        return ResponseEntity.ok(iCategoryHandler.getAllCategories());
     }
 }

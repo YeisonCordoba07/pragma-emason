@@ -9,6 +9,8 @@ import com.pragma.emason.domain.api.ICategoryService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class CategoryHandler implements ICategoryHandler{
@@ -32,6 +34,11 @@ public class CategoryHandler implements ICategoryHandler{
     @Override
     public CategoryResponseDTO getCategoryByName(String name) {
         return iCategoryResponseMapper.toResponse(iCategoryService.getCategoryByName(name));
+    }
+
+    @Override
+    public List<CategoryResponseDTO> getAllCategories() {
+        return iCategoryResponseMapper.toResponseList(iCategoryService.getAllCategories());
     }
 
 
