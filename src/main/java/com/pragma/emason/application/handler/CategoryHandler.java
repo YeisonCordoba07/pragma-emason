@@ -6,6 +6,7 @@ import com.pragma.emason.application.mapper.ICategoryRequestMapper;
 import com.pragma.emason.application.mapper.ICategoryResponseMapper;
 import com.pragma.emason.domain.model.Category;
 import com.pragma.emason.domain.api.ICategoryService;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,9 +38,11 @@ public class CategoryHandler implements ICategoryHandler{
     }
 
     @Override
-    public List<CategoryResponseDTO> getAllCategories() {
-        return iCategoryResponseMapper.toResponseList(iCategoryService.getAllCategories());
+    public Page<CategoryResponseDTO> getAllCategories(int page, int size) {
+        Page<Category> categoryPage = iCategoryService.getAllCategories(page, size);
+        return categoryPage.map(iCategoryResponseMapper::toResponse);
     }
+
 
 
 }

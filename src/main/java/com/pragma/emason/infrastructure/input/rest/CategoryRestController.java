@@ -5,6 +5,7 @@ import com.pragma.emason.application.dto.CategoryResponseDTO;
 import com.pragma.emason.application.handler.ICategoryHandler;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -37,7 +38,7 @@ public class CategoryRestController {
     }
 
     @GetMapping("/getAll")
-    public ResponseEntity<List<CategoryResponseDTO>> getCategories(){
-        return ResponseEntity.ok(iCategoryHandler.getAllCategories());
+    public ResponseEntity<Page<CategoryResponseDTO>> getCategories(@RequestParam int page, @RequestParam int size) {
+        return ResponseEntity.ok(iCategoryHandler.getAllCategories(page, size));
     }
 }

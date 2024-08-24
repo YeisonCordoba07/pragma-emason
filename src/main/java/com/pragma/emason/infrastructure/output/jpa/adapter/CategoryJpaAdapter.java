@@ -7,6 +7,9 @@ import com.pragma.emason.infrastructure.exception.NoDataFoundException;
 import com.pragma.emason.infrastructure.output.jpa.entity.CategoryEntity;
 import com.pragma.emason.infrastructure.output.jpa.mapper.ICategoryEntityMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -25,12 +28,16 @@ public class CategoryJpaAdapter implements ICategoryRepository {
     }
 
     @Override
-    public List<Category> getAllCategories() {
-        List<CategoryEntity> categoryEntityList = iCategoryRepository.findAll();
-        if(categoryEntityList.isEmpty()){
+    public Page<Category> getAllCategories(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<CategoryEntity> categoryEntityPage = iCategoryRepository.findAll(pageable);
+
+        if (categoryEntityPage.isEmpty()) {
             throw new NoDataFoundException();
         }
-        return iCategoryEntityMapper.toCategoryList(categoryEntityList);
+
+        // Mapea cada entidad a un objeto de dominio y devuelve una página de resultados
+        return categoryEntityPage.map(iCategoryEntityMapper::toCategory);
     }
 
     @Override
