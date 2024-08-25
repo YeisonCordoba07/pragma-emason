@@ -10,7 +10,7 @@ public interface ICategoryHandler {
 
     CategoryResponseDTO getCategoryByName(String name);
 
-    PageResult<CategoryResponseDTO> getAllCategories(int page, int size);
+    PageResult<CategoryResponseDTO> getAllCategories(int page, int size, String sortBy, boolean ascending);
 
 
 }

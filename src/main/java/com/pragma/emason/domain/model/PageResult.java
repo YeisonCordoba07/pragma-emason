@@ -10,6 +10,7 @@ public class PageResult<T>{
     private long totalElements; // Total de elementos disponibles
     private int totalPages;     // Total de páginas disponibles
 
+
     public PageResult(List<T> content, int page, int size, long totalElements) {
         this.content = content;
         this.page = page;

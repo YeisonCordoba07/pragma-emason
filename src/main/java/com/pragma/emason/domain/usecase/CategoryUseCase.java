@@ -24,8 +24,8 @@ public class CategoryUseCase implements ICategoryService {
     }
 
     @Override
-    public PageResult<Category> getAllCategories(int page, int size) {
-        return iCategoryPersistence.getAllCategories(page, size);
+    public PageResult<Category> getAllCategories(int page, int size, String sortBy, boolean ascending) {
+        return iCategoryPersistence.getAllCategories(page, size, sortBy,ascending);
     }
 
     @Override

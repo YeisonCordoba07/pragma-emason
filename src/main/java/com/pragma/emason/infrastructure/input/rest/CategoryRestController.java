@@ -6,13 +6,10 @@ import com.pragma.emason.application.handler.ICategoryHandler;
 import com.pragma.emason.domain.model.PageResult;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
 
 
 @RestController
@@ -38,7 +35,12 @@ public class CategoryRestController {
     }
 
     @GetMapping("/getAll")
-    public ResponseEntity<PageResult<CategoryResponseDTO>> getCategories(@RequestParam int page, @RequestParam int size) {
-        return ResponseEntity.ok(iCategoryHandler.getAllCategories(page, size));
+    public ResponseEntity<PageResult<CategoryResponseDTO>> getCategories(
+            @RequestParam int page,
+            @RequestParam int size,
+            @RequestParam String sortBy,
+            @RequestParam boolean ascending) {
+
+        return ResponseEntity.ok(iCategoryHandler.getAllCategories(page, size, sortBy, ascending));
     }
 }

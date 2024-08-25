@@ -1,5 +1,5 @@
 package com.pragma.emason.application.mapper;
-import com.pragma.emason.application.dto.CategoryRequestDTO;
+
 import com.pragma.emason.application.dto.CategoryResponseDTO;
 import com.pragma.emason.domain.model.Category;
 import org.mapstruct.Mapper;
