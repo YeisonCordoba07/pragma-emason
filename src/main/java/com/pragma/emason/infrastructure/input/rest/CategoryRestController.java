@@ -3,16 +3,16 @@ package com.pragma.emason.infrastructure.input.rest;
 import com.pragma.emason.application.dto.CategoryRequestDTO;
 import com.pragma.emason.application.dto.CategoryResponseDTO;
 import com.pragma.emason.application.handler.ICategoryHandler;
+import com.pragma.emason.domain.model.PageResult;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 
 @RestController
@@ -38,7 +38,7 @@ public class CategoryRestController {
     }
 
     @GetMapping("/getAll")
-    public ResponseEntity<Page<CategoryResponseDTO>> getCategories(@RequestParam int page, @RequestParam int size) {
+    public ResponseEntity<PageResult<CategoryResponseDTO>> getCategories(@RequestParam int page, @RequestParam int size) {
         return ResponseEntity.ok(iCategoryHandler.getAllCategories(page, size));
     }
 }

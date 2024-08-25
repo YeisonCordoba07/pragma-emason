@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class CategoryRestControllerTest {
 
     @Mock
-    private ICategoryHandler categoryHandler;
+    private ICategoryHandler iCategoryHandler;
 
     @InjectMocks
     private CategoryRestController categoryRestController;
@@ -53,7 +53,7 @@ class CategoryRestControllerTest {
 
         // Assert
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
-        verify(categoryHandler, times(1)).saveCategoryInDataBase(any(CategoryRequestDTO.class));
+        verify(iCategoryHandler, times(1)).saveCategoryInDataBase(any(CategoryRequestDTO.class));
     }
 
 
@@ -66,7 +66,7 @@ class CategoryRestControllerTest {
         responseDTO.setName(categoryName);
         responseDTO.setDescription(categoryDescription);
 
-        when(categoryHandler.getCategoryByName(categoryName)).thenReturn(responseDTO);
+        when(iCategoryHandler.getCategoryByName(categoryName)).thenReturn(responseDTO);
 
         // Act
         ResponseEntity<CategoryResponseDTO> response = categoryRestController.getCategoryByName(categoryName);
@@ -74,7 +74,7 @@ class CategoryRestControllerTest {
         // Assert
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(responseDTO, response.getBody());
-        verify(categoryHandler, times(1)).getCategoryByName(categoryName);
+        verify(iCategoryHandler, times(1)).getCategoryByName(categoryName);
     }
 
 
@@ -87,7 +87,7 @@ class CategoryRestControllerTest {
 
         // Simula que se lanza la excepcion cuando se intenta guardar
         doThrow(new CategoryNameAlreadyExistsException("A category with this name already exists."))
-                .when(categoryHandler).saveCategoryInDataBase(any(CategoryRequestDTO.class));
+                .when(iCategoryHandler).saveCategoryInDataBase(any(CategoryRequestDTO.class));
 
         // Act & Assert
         Exception exception = assertThrows(CategoryNameAlreadyExistsException.class, () -> {

@@ -1,7 +1,8 @@
 package com.pragma.emason.infrastructure.output.jpa.adapter;
 
 import com.pragma.emason.domain.model.Category;
-import com.pragma.emason.domain.spi.ICategoryRepository;
+import com.pragma.emason.domain.model.PageResult;
+import com.pragma.emason.domain.spi.ICategoryPersistence;
 import com.pragma.emason.infrastructure.exception.CategoryAlreadyExistsException;
 import com.pragma.emason.infrastructure.exception.NoDataFoundException;
 import com.pragma.emason.infrastructure.output.jpa.entity.CategoryEntity;
@@ -13,8 +14,9 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
+
 @RequiredArgsConstructor
-public class CategoryJpaAdapter implements ICategoryRepository {
+public class CategoryJpaAdapter implements ICategoryPersistence {
     private final com.pragma.emason.infrastructure.output.jpa.repository.ICategoryRepository iCategoryRepository;
     private final ICategoryEntityMapper iCategoryEntityMapper;
 
@@ -28,7 +30,7 @@ public class CategoryJpaAdapter implements ICategoryRepository {
     }
 
     @Override
-    public Page<Category> getAllCategories(int page, int size) {
+    public PageResult<Category> getAllCategories(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<CategoryEntity> categoryEntityPage = iCategoryRepository.findAll(pageable);
 
@@ -36,8 +38,18 @@ public class CategoryJpaAdapter implements ICategoryRepository {
             throw new NoDataFoundException();
         }
 
-        // Mapea cada entidad a un objeto de dominio y devuelve una página de resultados
-        return categoryEntityPage.map(iCategoryEntityMapper::toCategory);
+        // Mapea la lista de entidades a la lista de objetos de dominio
+        List<Category> categories = categoryEntityPage.getContent().stream()
+                .map(iCategoryEntityMapper::toCategory)
+                .toList();  // Usa Stream.toList() para obtener una lista inmutable
+
+        // Devuelve un objeto PaginatedResult que encapsula los datos de la paginación
+        return new PageResult<>(
+                categories,
+                categoryEntityPage.getNumber(),
+                categoryEntityPage.getSize(),
+                categoryEntityPage.getTotalElements()
+        );
     }
 
     @Override

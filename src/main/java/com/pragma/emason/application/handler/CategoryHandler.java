@@ -6,11 +6,12 @@ import com.pragma.emason.application.mapper.ICategoryRequestMapper;
 import com.pragma.emason.application.mapper.ICategoryResponseMapper;
 import com.pragma.emason.domain.model.Category;
 import com.pragma.emason.domain.api.ICategoryService;
-import org.springframework.data.domain.Page;
+import com.pragma.emason.domain.model.PageResult;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -38,9 +39,21 @@ public class CategoryHandler implements ICategoryHandler{
     }
 
     @Override
-    public Page<CategoryResponseDTO> getAllCategories(int page, int size) {
-        Page<Category> categoryPage = iCategoryService.getAllCategories(page, size);
-        return categoryPage.map(iCategoryResponseMapper::toResponse);
+    public PageResult<CategoryResponseDTO> getAllCategories(int page, int size) {
+        // Obtiene el resultado paginado del servicio
+        PageResult<Category> categoryPage = iCategoryService.getAllCategories(page, size);
+
+        // Usa el mapper para convertir cada Category a CategoryResponseDTO
+        List<CategoryResponseDTO> categoryResponseDTOList = iCategoryResponseMapper.toResponseList(categoryPage.getContent());
+
+        // Crea un nuevo PaginatedResult para los DTOs
+        return new PageResult<>(
+                categoryResponseDTOList,
+                categoryPage.getPage(),
+                categoryPage.getSize(),
+                categoryPage.getTotalElements()
+
+        );
     }
 
 
