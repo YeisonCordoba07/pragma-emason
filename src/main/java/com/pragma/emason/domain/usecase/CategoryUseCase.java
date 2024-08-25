@@ -5,7 +5,7 @@ import com.pragma.emason.domain.model.Category;
 import com.pragma.emason.domain.api.ICategoryService;
 import com.pragma.emason.domain.model.PageResult;
 import com.pragma.emason.domain.spi.ICategoryPersistence;
-import org.springframework.data.domain.Page;
+
 
 public class CategoryUseCase implements ICategoryService {
     private final ICategoryPersistence iCategoryPersistence;
