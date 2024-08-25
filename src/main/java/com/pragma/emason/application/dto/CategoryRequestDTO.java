@@ -11,7 +11,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CategoryRequestDTO {
-    private Integer id;
 
     @NotNull
     @NotBlank(message = "Name cannot be null blank")
