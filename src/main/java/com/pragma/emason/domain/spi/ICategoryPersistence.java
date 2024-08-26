@@ -1,10 +1,10 @@
-package com.pragma.emason.domain.api;
+package com.pragma.emason.domain.spi;
 
 import com.pragma.emason.domain.model.Category;
 import com.pragma.emason.domain.model.PageResult;
 
 
-public interface ICategoryService {
+public interface ICategoryPersistence {
 
     void saveCategory(Category category);
 

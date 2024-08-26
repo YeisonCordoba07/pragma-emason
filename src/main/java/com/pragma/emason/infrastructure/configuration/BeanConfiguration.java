@@ -1,6 +1,6 @@
 package com.pragma.emason.infrastructure.configuration;
 
-import com.pragma.emason.domain.spi.ICategoryRepository;
+import com.pragma.emason.domain.spi.ICategoryPersistence;
 import com.pragma.emason.domain.api.ICategoryService;
 import com.pragma.emason.domain.usecase.CategoryUseCase;
 import com.pragma.emason.infrastructure.output.jpa.adapter.CategoryJpaAdapter;
@@ -17,7 +17,7 @@ public class BeanConfiguration {
 
 
     @Bean
-    public ICategoryRepository categoryRepository(){
+    public ICategoryPersistence categoryRepository(){
         return new CategoryJpaAdapter(iCategoryRepository, iCategoryEntityMapper);
     }
     @Bean
