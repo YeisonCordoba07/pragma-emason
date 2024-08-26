@@ -1,35 +1,19 @@
 package com.pragma.emason.domain.usecase;
 
-import com.pragma.emason.domain.exception.CategoryNameAlreadyExistsException;
 import com.pragma.emason.domain.model.Category;
-import com.pragma.emason.domain.api.ICategoryService;
-import com.pragma.emason.domain.model.PageResult;
-import com.pragma.emason.domain.spi.ICategoryPersistence;
+import com.pragma.emason.domain.api.CategoryService;
+import com.pragma.emason.domain.spi.CategoryRepository;
 
+public class CategoryUseCase implements CategoryService {
+    private final CategoryRepository categoryRepository;
 
-public class CategoryUseCase implements ICategoryService {
-    private final ICategoryPersistence iCategoryPersistence;
-
-    public CategoryUseCase(ICategoryPersistence iCategoryPersistence) {
-        this.iCategoryPersistence = iCategoryPersistence;
+    public CategoryUseCase(CategoryRepository categoryRepository) {
+        this.categoryRepository = categoryRepository;
     }
 
 
     @Override
     public void saveCategory(Category category) {
-        if(this.iCategoryPersistence.getCategoryByName(category.getName()) != null){
-            throw new CategoryNameAlreadyExistsException("A category with this name already exists.");
-        }
-        this.iCategoryPersistence.saveCategory(category);
-    }
-
-    @Override
-    public PageResult<Category> getAllCategories(int page, int size, String sortBy, boolean ascending) {
-        return iCategoryPersistence.getAllCategories(page, size, sortBy,ascending);
-    }
-
-    @Override
-    public Category getCategoryByName(String name) {
-        return this.iCategoryPersistence.getCategoryByName(name);
+        this.categoryRepository.saveCategory(category);
     }
 }

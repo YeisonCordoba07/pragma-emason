@@ -1,10 +1,11 @@
 package com.pragma.emason.infrastructure.configuration;
 
-import com.pragma.emason.domain.spi.ICategoryPersistence;
-import com.pragma.emason.domain.api.ICategoryService;
+import com.pragma.emason.domain.spi.CategoryRepository;
+import com.pragma.emason.domain.api.CategoryService;
 import com.pragma.emason.domain.usecase.CategoryUseCase;
 import com.pragma.emason.infrastructure.output.jpa.adapter.CategoryJpaAdapter;
-import com.pragma.emason.infrastructure.output.jpa.mapper.ICategoryEntityMapper;
+import com.pragma.emason.infrastructure.output.jpa.mapper.CategoryEntityMapper;
+import com.pragma.emason.infrastructure.output.jpa.repository.ICategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,16 +13,16 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @RequiredArgsConstructor
 public class BeanConfiguration {
-    private final com.pragma.emason.infrastructure.output.jpa.repository.ICategoryRepository iCategoryRepository;
-    private final ICategoryEntityMapper iCategoryEntityMapper;
+    private final ICategoryRepository iCategoryRepository;
+    private final CategoryEntityMapper categoryEntityMapper;
 
 
     @Bean
-    public ICategoryPersistence categoryRepository(){
-        return new CategoryJpaAdapter(iCategoryRepository, iCategoryEntityMapper);
+    public CategoryRepository categoryRepository(){
+        return new CategoryJpaAdapter(iCategoryRepository, categoryEntityMapper);
     }
     @Bean
-    public ICategoryService categoryService(){
+    public CategoryService categoryService(){
         return new CategoryUseCase(categoryRepository());
     }
 

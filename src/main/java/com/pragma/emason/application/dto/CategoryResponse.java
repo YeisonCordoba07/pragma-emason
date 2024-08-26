@@ -1,17 +1,13 @@
 package com.pragma.emason.application.dto;
 
-import lombok.*;
-
+import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@RequiredArgsConstructor
-public class CategoryResponseDTO {
+public class CategoryResponse {
     private Integer id;
-
     private String name;
-
     private String description;
 
 }
