@@ -18,6 +18,9 @@ public class PageResult<T>{
         this.totalElements = totalElements;
         this.totalPages = (int) Math.ceil((double) totalElements / size);
     }
+    public PageResult(){
+
+    }
 
     // Getters y setters
     public List<T> getContent() {
