@@ -45,25 +45,25 @@ class CategoryJpaAdapterTest {
 
     @Test
     void getAllCategoriesSuccessfully() {
-        // Configurar datos de prueba
+        // Configure the test data
         CategoryEntity categoryEntity1 = new CategoryEntity(1, "Category 1", "Description 1");
         CategoryEntity categoryEntity2 = new CategoryEntity(2, "Category 2", "Description 2");
         List<CategoryEntity> categoryEntities = Arrays.asList(categoryEntity1, categoryEntity2);
         Page<CategoryEntity> categoryEntityPage = new PageImpl<>(categoryEntities, PageRequest.of(0, 2, Sort.by(Sort.Direction.ASC, "name")), 10);
 
-        // Configurar mock del repositorio
+        // Configure the respository mock
         when(iCategoryRepository.findAll(any(PageRequest.class))).thenReturn(categoryEntityPage);
 
-        // Configurar mock del mapper
+        // Configure the mock mapper
         Category category1 = new Category(1, "Category 1", "Description 1");
         Category category2 = new Category(2, "Category 2", "Description 2");
         when(iCategoryEntityMapper.toCategory(categoryEntity1)).thenReturn(category1);
         when(iCategoryEntityMapper.toCategory(categoryEntity2)).thenReturn(category2);
 
-        // Ejecutar el método a probar
+        // Execute the method to be tested
         PageResult<Category> result = categoryJpaAdapter.getAllCategories(0, 2, "name", true);
 
-        // Verificar el resultado
+        // Check the result
         assertEquals(2, result.getContent().size());
         assertEquals(0, result.getPage());
         assertEquals(2, result.getSize());

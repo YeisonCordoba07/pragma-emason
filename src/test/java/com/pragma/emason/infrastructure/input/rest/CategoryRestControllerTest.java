@@ -93,7 +93,7 @@ class CategoryRestControllerTest {
         requestDTO.setName("ExistingCategory");
         requestDTO.setDescription("Description for existing category");
 
-        // Simula que se lanza la excepcion cuando se intenta guardar
+        // Simulates that the exception is thrown when tryin to save
         doThrow(new CategoryNameAlreadyExistsException("A category with this name already exists."))
                 .when(iCategoryHandler).saveCategoryInDataBase(any(CategoryRequestDTO.class));
 
@@ -102,7 +102,7 @@ class CategoryRestControllerTest {
             categoryRestController.saveCategory(requestDTO);
         });
 
-        // Verifica el mensaje de la excepcion
+        // Check the exception message
         assertEquals("A category with this name already exists.", exception.getMessage());
     }
 
@@ -213,7 +213,7 @@ class CategoryRestControllerTest {
         Mockito.when(iCategoryHandler.getAllCategories(anyInt(), anyInt(), anyString(), anyBoolean()))
                 .thenReturn(pageResult);
 
-        // Realizar la petición y verificar los resultados
+        // Make the request and check the results
         mockMvc.perform(get("/category/getAll")
                         .param("page", "0")
                         .param("size", "3")
@@ -235,30 +235,30 @@ class CategoryRestControllerTest {
 
     @Test
     void getCategories_PageNumberGreaterThanAvailable_ReturnsEmptyPage() throws Exception {
-        // Preparar el resultado simulado de la llamada a getAllCategories
+        // Prepare the simulated result of the getAllCategories call
         PageResult<CategoryResponseDTO> pageResult = new PageResult<>();
-        pageResult.setContent(Collections.emptyList()); // Página vacía
-        pageResult.setTotalPages(2); // Solo hay una página disponible
-        pageResult.setTotalElements(6); // Tres elementos en total
-        pageResult.setPage(10); // Página solicitada que no existe
+        pageResult.setContent(Collections.emptyList()); // Empty page
+        pageResult.setTotalPages(2); // Only one page available
+        pageResult.setTotalElements(6); // Three elements in total
+        pageResult.setPage(10); // Requested page that does not exist
         pageResult.setSize(3);
 
         Mockito.when(iCategoryHandler.getAllCategories(anyInt(), anyInt(), anyString(), anyBoolean()))
                 .thenReturn(pageResult);
 
-        // Realizar la petición y verificar los resultados
+        // Perform the request and verify the results
         mockMvc.perform(get("/category/getAll")
-                        .param("page", "10") // Número de página mayor al disponible
+                        .param("page", "10") // Page number greater than available
                         .param("size", "3")
                         .param("sortBy", "name")
                         .param("ascending", "false")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.content").isEmpty()) // Verificar que el contenido esté vacío
-                .andExpect(jsonPath("$.totalPages").value(2)) // Solo una página disponible
-                .andExpect(jsonPath("$.totalElements").value(6)) // Tres elementos en total
-                .andExpect(jsonPath("$.page").value(10)) // Página solicitada
+                .andExpect(jsonPath("$.content").isEmpty()) // Verify that the content is empty
+                .andExpect(jsonPath("$.totalPages").value(2)) // Only one page available
+                .andExpect(jsonPath("$.totalElements").value(6)) // Three elements in total
+                .andExpect(jsonPath("$.page").value(10)) // Requested page
                 .andExpect(jsonPath("$.size").value(3));
     }
 

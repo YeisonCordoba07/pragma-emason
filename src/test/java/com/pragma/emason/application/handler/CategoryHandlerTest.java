@@ -35,23 +35,23 @@ class CategoryHandlerTest {
 
     @Test
     void getAllCategoriesTest() {
-        // Configurar el mock de ICategoryService
+        // Configure the ICategoryService mock
         Category category1 = new Category(1, "Category 1", "Description 1");
         Category category2 = new Category(2, "Category 2", "Description 2");
         List<Category> categories = Arrays.asList(category1, category2);
         PageResult<Category> categoryPageResult = new PageResult<>(categories, 0, 2, 10);
         when(iCategoryService.getAllCategories(0, 2, "name", true)).thenReturn(categoryPageResult);
 
-        // Configurar el mock de ICategoryResponseMapper
+        // Configure the ICategoryResponseMapper mock
         CategoryResponseDTO categoryResponseDTO1 = new CategoryResponseDTO(1, "Category 1", "Description 1");
         CategoryResponseDTO categoryResponseDTO2 = new CategoryResponseDTO(2, "Category 2", "Description 2");
         List<CategoryResponseDTO> categoryResponseDTOs = Arrays.asList(categoryResponseDTO1, categoryResponseDTO2);
         when(iCategoryResponseMapper.toResponseList(categories)).thenReturn(categoryResponseDTOs);
 
-        // Ejecutar el método que estamos probando
+        // Execute the method we are testing
         PageResult<CategoryResponseDTO> result = categoryHandler.getAllCategories(0, 2, "name", true);
 
-        // Verificar el resultado
+        // Check the result
         assertEquals(2, result.getContent().size());
         assertEquals(0, result.getPage());
         assertEquals(2, result.getSize());

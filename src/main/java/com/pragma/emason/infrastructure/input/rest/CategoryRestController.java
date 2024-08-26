@@ -44,6 +44,7 @@ public class CategoryRestController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
+
     @Operation(summary = "Get a category by name",
             description = "Fetches the details of a specific category by its name.")
     @ApiResponses(value = {
@@ -58,6 +59,7 @@ public class CategoryRestController {
     public ResponseEntity<CategoryResponseDTO> getCategoryByName(@PathVariable String name){
         return ResponseEntity.ok(iCategoryHandler.getCategoryByName(name));
     }
+
 
     @Operation(summary = "Get all categories with pagination and sorting",
             description = "Fetches all categories with optional pagination and sorting parameters.")

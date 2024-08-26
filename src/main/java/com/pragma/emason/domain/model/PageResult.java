@@ -4,11 +4,11 @@ import java.util.List;
 
 public class PageResult<T>{
 
-    private List<T> content;    // Lista de elementos de la página
-    private int page;     // Número de la página actual (comienza desde 0)
-    private int size;       // Tamaño de la página (cuántos elementos por página)
-    private long totalElements; // Total de elementos disponibles
-    private int totalPages;     // Total de páginas disponibles
+    private List<T> content;    // List of page elements
+    private int page;     // Current page number (start from 0)
+    private int size;       // Page size (how many elements per page)
+    private long totalElements; // Total elements available
+    private int totalPages;     // Total pages available
 
 
     public PageResult(List<T> content, int page, int size, long totalElements) {

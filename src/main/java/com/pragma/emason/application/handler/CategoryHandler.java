@@ -39,14 +39,14 @@ public class CategoryHandler implements ICategoryHandler{
 
     @Override
     public PageResult<CategoryResponseDTO> getAllCategories(int page, int size, String sortBy, boolean ascending) {
-        // Obtiene el resultado paginado del servicio
+        // Gets the paginated result of the service
         PageResult<Category> categoryPage = iCategoryService.getAllCategories(page,  size,  sortBy, ascending);
 
-        // Usa el mapper para convertir cada Category a CategoryResponseDTO
+        // Use the mapper to convert each Category to CategoryResponseDTO
         List<CategoryResponseDTO> categoryResponseDTOList = iCategoryResponseMapper
                 .toResponseList(categoryPage.getContent());
 
-        // Crea un nuevo PaginatedResult para los DTOs
+        // Create a new PaginatedResult for the DTOs
         return new PageResult<>(
                 categoryResponseDTOList,
                 categoryPage.getPage(),

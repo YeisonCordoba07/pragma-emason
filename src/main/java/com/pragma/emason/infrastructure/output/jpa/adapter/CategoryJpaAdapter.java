@@ -33,7 +33,7 @@ public class CategoryJpaAdapter implements ICategoryPersistence {
     @Override
     public PageResult<Category> getAllCategories(int page, int size, String sortBy, boolean ascending) {
 
-        // Crear el objeto Sort basado en los parámetros de entrada
+        // Create the Sort object based on the input parameters
         Sort.Direction direction = ascending ? Sort.Direction.ASC : Sort.Direction.DESC;
         Sort sort = Sort.by(direction, sortBy);
 
@@ -44,12 +44,12 @@ public class CategoryJpaAdapter implements ICategoryPersistence {
             throw new NoDataFoundException();
         }
 
-        // Mapea la lista de entidades a la lista de objetos de dominio
+        // Maps the list of entities of the list of Domain objects
         List<Category> categories = categoryEntityPage.getContent().stream()
                 .map(iCategoryEntityMapper::toCategory)
-                .toList();  // Usa Stream.toList() para obtener una lista inmutable
+                .toList();  // Use Stream.toList() to get an immutable list
 
-        // Devuelve un objeto PaginatedResult que encapsula los datos de la paginación
+        // Return a PaginatedResult object that encapsulates the pagination data
         return new PageResult<>(
                 categories,
                 categoryEntityPage.getNumber(),
