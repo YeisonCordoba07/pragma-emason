@@ -1,5 +1,6 @@
 package com.pragma.emason.infrastructure.output.jpa.adapter;
 
+import com.pragma.emason.infrastructure.exception.NoDataFoundException;
 import com.pragma.emason.infrastructure.output.jpa.repository.ICategoryRepository;
 import org.junit.jupiter.api.Test;
 
@@ -15,13 +16,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 
 import java.util.Arrays;
 
+import java.util.Collections;
 import java.util.List;
 
 
@@ -71,4 +70,46 @@ class CategoryJpaAdapterTest {
         assertEquals("Category 1", result.getContent().get(0).getName());
         assertEquals("Category 2", result.getContent().get(1).getName());
     }
+
+    @Test
+    void testGetAllCategories_NoDataFound() {
+        // Arrange
+        int page = 100; // A very high page number
+        int size = 10;
+        String sortBy = "name";
+        boolean ascending = true;
+
+        Sort.Direction direction = Sort.Direction.ASC;
+        Pageable pageable = PageRequest.of(page, size, Sort.by(direction, sortBy));
+
+        Page<CategoryEntity> emptyPage = new PageImpl<>(Collections.emptyList(), pageable, 0);
+
+        when(iCategoryRepository.findAll(pageable)).thenReturn(emptyPage);
+
+        // Act & Assert
+        assertThrows(NoDataFoundException.class, () -> {
+            categoryJpaAdapter.getAllCategories(page, size, sortBy, ascending);
+        });
+    }
+
+    @Test
+    void testGetAllCategoriesWithInvalidSortBy() {
+        int page = 0;
+        int size = 10;
+        String invalidSortBy = "invalidField"; // Invalid parameter sortBy
+        boolean ascending = true;
+
+        // Configure the mock to throw an IllegalArgumentException when sortBy is invalid
+        when(iCategoryRepository.findAll(PageRequest.of(
+                page,
+                size,
+                Sort.by(ascending ? Sort.Direction.ASC : Sort.Direction.DESC, invalidSortBy))))
+                .thenThrow(IllegalArgumentException.class);
+
+        // Execute and verify that the correct exception is thrown
+        assertThrows(IllegalArgumentException.class, () -> {
+            categoryJpaAdapter.getAllCategories(page, size, invalidSortBy, ascending);
+        });
+    }
+
 }
