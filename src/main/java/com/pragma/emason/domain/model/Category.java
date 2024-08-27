@@ -1,14 +1,12 @@
 package com.pragma.emason.domain.model;
 
 public class Category {
-    private Integer id;
+
     private String name;
     private String description;
 
 
-
-    public Category(Integer id, String name, String description) {
-        this.id = id;
+    public Category(String name, String description) {
         this.name = name;
         this.description = description;
     }
@@ -17,13 +15,7 @@ public class Category {
 
     //Getter and Setter
 
-    public Integer getId() {
-        return id;
-    }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;

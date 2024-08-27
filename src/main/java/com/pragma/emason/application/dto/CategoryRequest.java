@@ -5,8 +5,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CategoryRequest {
-    private Integer id;
+@AllArgsConstructor
+@RequiredArgsConstructor
+public class CategoryResponseDTO {
+
     private String name;
     private String description;
 
