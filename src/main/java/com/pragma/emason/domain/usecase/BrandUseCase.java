@@ -1,7 +1,6 @@
 package com.pragma.emason.domain.usecase;
 
 import com.pragma.emason.domain.api.IBrandService;
-import com.pragma.emason.domain.exception.BrandNameAlreadyExists;
 import com.pragma.emason.domain.model.Brand;
 import com.pragma.emason.domain.spi.IBrandPersistence;
 
