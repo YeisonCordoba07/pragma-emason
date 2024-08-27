@@ -197,6 +197,10 @@ class CategoryRestControllerTest {
 
 
 
+
+
+
+
     @Test
     void getCategoriesSuccessfully() throws Exception {
         PageResult<CategoryResponseDTO> pageResult = new PageResult<>();
@@ -230,6 +234,17 @@ class CategoryRestControllerTest {
                 .andExpect(jsonPath("$.page").value(0))
                 .andExpect(jsonPath("$.size").value(3));
 
+    }
+
+
+    @Test
+    void testGetAllCategoriesWithInvalidAscendingValue() throws Exception {
+        mockMvc.perform(get("/category/getAll")
+                        .param("page", "0")
+                        .param("size", "3")
+                        .param("sortBy", "name")
+                        .param("ascending", "invalid")) // Type no boolean value
+                .andExpect(status().isBadRequest()); // Waiting a 400 Bad Request
     }
 
 

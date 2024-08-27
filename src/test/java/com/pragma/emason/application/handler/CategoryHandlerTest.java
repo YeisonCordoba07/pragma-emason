@@ -15,6 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 class CategoryHandlerTest {
@@ -59,5 +60,55 @@ class CategoryHandlerTest {
         assertEquals("Category 1", result.getContent().get(0).getName());
         assertEquals("Category 2", result.getContent().get(1).getName());
     }
+
+    @Test
+    void testGetAllCategoriesMapping() {
+        // Mock the input parameters
+        int page = 0;
+        int size = 3;
+        String sortBy = "name";
+        boolean ascending = true;
+
+        // Mock the service response
+        List<Category> categories = List.of(new Category(1, "name", "description"), new Category(2, "name", "description"));
+        PageResult<Category> categoryPageResult = new PageResult<>(categories, page, size, categories.size());
+
+        // Mock the mapper response
+        List<CategoryResponseDTO> categoryResponseDTOList = List.of(new CategoryResponseDTO(1, "name", "description"), new CategoryResponseDTO(2, "name", "description"));
+
+        when(iCategoryService.getAllCategories(page, size, sortBy, ascending)).thenReturn(categoryPageResult);
+        when(iCategoryResponseMapper.toResponseList(categoryPageResult.getContent())).thenReturn(categoryResponseDTOList);
+
+        // Call the method
+        PageResult<CategoryResponseDTO> result = categoryHandler.getAllCategories(page, size, sortBy, ascending);
+
+        // Verify the results
+        assertEquals(categoryResponseDTOList, result.getContent());
+        assertEquals(page, result.getPage());
+        assertEquals(size, result.getSize());
+        assertEquals(categories.size(), result.getTotalElements());
+
+        verify(iCategoryService).getAllCategories(page, size, sortBy, ascending);
+        verify(iCategoryResponseMapper).toResponseList(categoryPageResult.getContent());
+    }
+
+    @Test
+    void testGetAllCategoriesInvalidSortBy() {
+        int page = 0;
+        int size = 3;
+        String invalidSortBy = "invalidField";
+        boolean ascending = true;
+
+        when(iCategoryService.getAllCategories(page, size, invalidSortBy, ascending))
+                .thenThrow(IllegalArgumentException.class);
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            categoryHandler.getAllCategories(page, size, invalidSortBy, ascending);
+        });
+
+        verify(iCategoryService).getAllCategories(page, size, invalidSortBy, ascending);
+    }
+
+
 
 }
