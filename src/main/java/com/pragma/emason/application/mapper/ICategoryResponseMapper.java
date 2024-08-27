@@ -18,7 +18,7 @@ public interface ICategoryResponseMapper {
         return categoryList.stream()
                 .map(category ->{
                     CategoryResponseDTO categoryResponseDTO = new CategoryResponseDTO();
-                    categoryResponseDTO.setId(category.getId());
+                    //categoryResponseDTO.setId(category.getId());
                     categoryResponseDTO.setName(category.getName());
                     categoryResponseDTO.setDescription(category.getDescription());
                     return categoryResponseDTO;

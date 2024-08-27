@@ -54,8 +54,8 @@ class CategoryJpaAdapterTest {
         when(iCategoryRepository.findAll(any(PageRequest.class))).thenReturn(categoryEntityPage);
 
         // Configure the mock mapper
-        Category category1 = new Category(1, "Category 1", "Description 1");
-        Category category2 = new Category(2, "Category 2", "Description 2");
+        Category category1 = new Category("Category 1", "Description 1");
+        Category category2 = new Category("Category 2", "Description 2");
         when(iCategoryEntityMapper.toCategory(categoryEntity1)).thenReturn(category1);
         when(iCategoryEntityMapper.toCategory(categoryEntity2)).thenReturn(category2);
 

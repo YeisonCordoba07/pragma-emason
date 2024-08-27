@@ -31,8 +31,8 @@ class CategoryUseCaseTest {
 
     @Test
     void getAllCategoriesSuccessfully() {
-        Category category1 = new Category(1, "Category 1", "Description 1");
-        Category category2 = new Category(2, "Category 2", "Description 2");
+        Category category1 = new Category("Category 1", "Description 1");
+        Category category2 = new Category("Category 2", "Description 2");
 
         List<Category> listCategories = Arrays.asList(category1, category2);
         PageResult<Category> pageResult = new PageResult<>(listCategories, 0, 2, 10);

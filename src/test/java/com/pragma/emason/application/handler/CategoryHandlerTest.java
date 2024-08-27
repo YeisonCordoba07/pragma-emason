@@ -37,15 +37,15 @@ class CategoryHandlerTest {
     @Test
     void getAllCategoriesTest() {
         // Configure the ICategoryService mock
-        Category category1 = new Category(1, "Category 1", "Description 1");
-        Category category2 = new Category(2, "Category 2", "Description 2");
+        Category category1 = new Category("Category 1", "Description 1");
+        Category category2 = new Category("Category 2", "Description 2");
         List<Category> categories = Arrays.asList(category1, category2);
         PageResult<Category> categoryPageResult = new PageResult<>(categories, 0, 2, 10);
         when(iCategoryService.getAllCategories(0, 2, "name", true)).thenReturn(categoryPageResult);
 
         // Configure the ICategoryResponseMapper mock
-        CategoryResponseDTO categoryResponseDTO1 = new CategoryResponseDTO(1, "Category 1", "Description 1");
-        CategoryResponseDTO categoryResponseDTO2 = new CategoryResponseDTO(2, "Category 2", "Description 2");
+        CategoryResponseDTO categoryResponseDTO1 = new CategoryResponseDTO("Category 1", "Description 1");
+        CategoryResponseDTO categoryResponseDTO2 = new CategoryResponseDTO("Category 2", "Description 2");
         List<CategoryResponseDTO> categoryResponseDTOs = Arrays.asList(categoryResponseDTO1, categoryResponseDTO2);
         when(iCategoryResponseMapper.toResponseList(categories)).thenReturn(categoryResponseDTOs);
 
@@ -70,11 +70,11 @@ class CategoryHandlerTest {
         boolean ascending = true;
 
         // Mock the service response
-        List<Category> categories = List.of(new Category(1, "name", "description"), new Category(2, "name", "description"));
+        List<Category> categories = List.of(new Category("name", "description"), new Category( "name", "description"));
         PageResult<Category> categoryPageResult = new PageResult<>(categories, page, size, categories.size());
 
         // Mock the mapper response
-        List<CategoryResponseDTO> categoryResponseDTOList = List.of(new CategoryResponseDTO(1, "name", "description"), new CategoryResponseDTO(2, "name", "description"));
+        List<CategoryResponseDTO> categoryResponseDTOList = List.of(new CategoryResponseDTO("name", "description"), new CategoryResponseDTO("name", "description"));
 
         when(iCategoryService.getAllCategories(page, size, sortBy, ascending)).thenReturn(categoryPageResult);
         when(iCategoryResponseMapper.toResponseList(categoryPageResult.getContent())).thenReturn(categoryResponseDTOList);

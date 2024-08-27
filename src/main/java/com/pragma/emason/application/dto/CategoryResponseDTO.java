@@ -8,7 +8,6 @@ import lombok.*;
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class CategoryResponseDTO {
-    private Integer id;
 
     private String name;
 
