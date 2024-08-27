@@ -23,9 +23,9 @@ public class CategoryJpaAdapter implements ICategoryPersistence {
 
     @Override
     public void saveCategory(Category category) {
-        if(iCategoryRepository.findById(category.getId()).isPresent()){
+        /*if(iCategoryRepository.findById(category.getId()).isPresent()){
             throw new CategoryAlreadyExistsException();
-        }
+        }*/
 
         iCategoryRepository.save(iCategoryEntityMapper.toEntity(category));
     }
