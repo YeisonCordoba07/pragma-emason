@@ -53,7 +53,7 @@ class CategoryUseCaseTest {
     @Test
     void testGetAllCategories_PageTooHigh_ThrowsNoDataFoundException() {
         // Arrange
-        int highPageNumber = 100;  // Un número de página muy alto
+        int highPageNumber = 100;  // A very high page number
         int pageSize = 5;
         String sortBy = "name";
         boolean ascending = true;

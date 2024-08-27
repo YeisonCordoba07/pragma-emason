@@ -74,7 +74,7 @@ class CategoryJpaAdapterTest {
     @Test
     void testGetAllCategories_NoDataFound() {
         // Arrange
-        int page = 100; // Page number very high
+        int page = 100; // A very high page number
         int size = 10;
         String sortBy = "name";
         boolean ascending = true;
@@ -99,14 +99,14 @@ class CategoryJpaAdapterTest {
         String invalidSortBy = "invalidField"; // Invalid parameter sortBy
         boolean ascending = true;
 
-        // Configurar el mock para que lance una IllegalArgumentException cuando el sortBy es inválido
+        // Configure the mock to throw an IllegalArgumentException when sortBy is invalid
         when(iCategoryRepository.findAll(PageRequest.of(
                 page,
                 size,
                 Sort.by(ascending ? Sort.Direction.ASC : Sort.Direction.DESC, invalidSortBy))))
                 .thenThrow(IllegalArgumentException.class);
 
-        // Ejecutar y verificar que se lanza la excepción correcta
+        // Execute and verify that the correct exception is thrown
         assertThrows(IllegalArgumentException.class, () -> {
             categoryJpaAdapter.getAllCategories(page, size, invalidSortBy, ascending);
         });
