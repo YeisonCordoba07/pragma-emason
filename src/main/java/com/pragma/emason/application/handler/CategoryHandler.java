@@ -20,7 +20,11 @@ public class CategoryHandler implements ICategoryHandler{
     private final ICategoryService iCategoryService;
     private final ICategoryResponseMapper iCategoryResponseMapper;
 
-    public CategoryHandler(ICategoryRequestMapper iCategoryRequestMapper, ICategoryService iCategoryService, ICategoryResponseMapper iCategoryResponseMapper) {
+    public CategoryHandler(
+            ICategoryRequestMapper iCategoryRequestMapper,
+            ICategoryService iCategoryService,
+            ICategoryResponseMapper iCategoryResponseMapper) {
+
         this.iCategoryRequestMapper = iCategoryRequestMapper;
         this.iCategoryService = iCategoryService;
         this.iCategoryResponseMapper = iCategoryResponseMapper;
