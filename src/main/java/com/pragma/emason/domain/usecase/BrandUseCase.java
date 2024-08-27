@@ -14,9 +14,16 @@ public class BrandUseCase implements IBrandService {
 
     @Override
     public void saveBrand(Brand brand) {
-        /*if(this.iBrandPersistence.getBrandByName(brand.getName()) != null){
-            BrandNameAlreadyExistsException("A brand with this name already exists.");
-        }*/
-        iBrandPersistence.saveBrand(brand);
+        if(this.iBrandPersistence.getBrandByName(brand.getName()) != null){
+            throw new BrandNameAlreadyExistsException("A brand with this name already exists.");
+        }
+        this.iBrandPersistence.saveBrand(brand);
     }
+
+    @Override
+    public Brand getBrandByName(String name) {
+        return this.iBrandPersistence.getBrandByName(name);
+    }
+
+
 }

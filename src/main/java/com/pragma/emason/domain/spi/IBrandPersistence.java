@@ -5,4 +5,6 @@ import com.pragma.emason.domain.model.Brand;
 public interface IBrandPersistence {
 
     void saveBrand(Brand brand);
+
+    Brand getBrandByName(String name);
 }

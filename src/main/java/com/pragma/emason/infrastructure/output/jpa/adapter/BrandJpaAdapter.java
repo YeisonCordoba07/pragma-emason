@@ -18,4 +18,9 @@ public class BrandJpaAdapter implements IBrandPersistence {
         BrandEntity brandEntity = iBrandEntityMapper.toEntity(brand);
         iBrandRepository.save(brandEntity);
     }
+
+    @Override
+    public Brand getBrandByName(String name) {
+        return iBrandEntityMapper.toBrand(iBrandRepository.findBrandEntityByName(name));
+    }
 }

@@ -30,16 +30,19 @@ public class CategoryHandler implements ICategoryHandler{
         this.iCategoryResponseMapper = iCategoryResponseMapper;
     }
 
+
     @Override
     public void saveCategoryInDataBase(CategoryRequestDTO categoryRequestDTO) {
         Category category = iCategoryRequestMapper.toCategory(categoryRequestDTO);
         this.iCategoryService.saveCategory(category);
     }
 
+
     @Override
     public CategoryResponseDTO getCategoryByName(String name) {
         return iCategoryResponseMapper.toResponse(iCategoryService.getCategoryByName(name));
     }
+
 
     @Override
     public PageResult<CategoryResponseDTO> getAllCategories(int page, int size, String sortBy, boolean ascending) {
