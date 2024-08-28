@@ -20,11 +20,16 @@ public class CategoryHandler implements ICategoryHandler{
     private final ICategoryService iCategoryService;
     private final ICategoryResponseMapper iCategoryResponseMapper;
 
-    public CategoryHandler(ICategoryRequestMapper iCategoryRequestMapper, ICategoryService iCategoryService, ICategoryResponseMapper iCategoryResponseMapper) {
+    public CategoryHandler(
+            ICategoryRequestMapper iCategoryRequestMapper,
+            ICategoryService iCategoryService,
+            ICategoryResponseMapper iCategoryResponseMapper) {
+
         this.iCategoryRequestMapper = iCategoryRequestMapper;
         this.iCategoryService = iCategoryService;
         this.iCategoryResponseMapper = iCategoryResponseMapper;
     }
+
 
     @Override
     public void saveCategoryInDataBase(CategoryRequestDTO categoryRequestDTO) {
@@ -32,10 +37,12 @@ public class CategoryHandler implements ICategoryHandler{
         this.iCategoryService.saveCategory(category);
     }
 
+
     @Override
     public CategoryResponseDTO getCategoryByName(String name) {
         return iCategoryResponseMapper.toResponse(iCategoryService.getCategoryByName(name));
     }
+
 
     @Override
     public PageResult<CategoryResponseDTO> getAllCategories(int page, int size, String sortBy, boolean ascending) {
