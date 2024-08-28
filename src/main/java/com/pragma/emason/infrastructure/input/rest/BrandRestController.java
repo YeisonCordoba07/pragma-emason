@@ -36,8 +36,24 @@ public class BrandRestController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
+
+    @Operation(summary = "Get brand by name",
+            description = "Fetches a brand's details by its name.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Brand found",
+                    content = @Content(schema = @Schema(implementation = BrandResponseDTO.class))),
+            @ApiResponse(responseCode = "404",
+                    description = "Brand not found",
+                    content = @Content(schema = @Schema(implementation = String.class)))
+    })
     @GetMapping("/{name}")
-    public ResponseEntity<BrandResponseDTO> getBrandByName(@PathVariable String name){
-        return ResponseEntity.ok(iBrandHandler.getBrandByName(name));
+    public ResponseEntity<BrandResponseDTO> getBrandByName(
+            @PathVariable @Schema(
+                    description = "The name of the brand to fetch",
+                    example = "BrandTest")
+            String name) {
+        BrandResponseDTO brandResponse = iBrandHandler.getBrandByName(name);
+        return ResponseEntity.ok(brandResponse);
     }
 }
