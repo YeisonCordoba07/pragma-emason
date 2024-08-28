@@ -18,8 +18,10 @@ public class BrandEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @NotNull
+
+    @Column(unique = true, nullable = false, length = 50)
     private String name;
-    @NotNull
+
+    @Column(nullable = false, length = 120)
     private String description;
 }
