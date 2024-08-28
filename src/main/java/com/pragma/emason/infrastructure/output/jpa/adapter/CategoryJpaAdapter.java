@@ -3,7 +3,6 @@ package com.pragma.emason.infrastructure.output.jpa.adapter;
 import com.pragma.emason.domain.model.Category;
 import com.pragma.emason.domain.model.PageResult;
 import com.pragma.emason.domain.spi.ICategoryPersistence;
-import com.pragma.emason.infrastructure.exception.CategoryAlreadyExistsException;
 import com.pragma.emason.infrastructure.exception.NoDataFoundException;
 import com.pragma.emason.infrastructure.output.jpa.entity.CategoryEntity;
 import com.pragma.emason.infrastructure.output.jpa.mapper.ICategoryEntityMapper;
@@ -23,9 +22,6 @@ public class CategoryJpaAdapter implements ICategoryPersistence {
 
     @Override
     public void saveCategory(Category category) {
-        /*if(iCategoryRepository.findById(category.getId()).isPresent()){
-            throw new CategoryAlreadyExistsException();
-        }*/
 
         iCategoryRepository.save(iCategoryEntityMapper.toEntity(category));
     }
