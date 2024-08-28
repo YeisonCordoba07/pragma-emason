@@ -53,7 +53,7 @@ class BrandHandlerTest {
     }
 
     @Test
-    void getBrandByName_When(){
+    void getBrandByName_ShouldReturnBrandResponseDTO(){
         String brandName = "Brand's name";
         Brand brand = new Brand("Brand's name", "Brand's description");
         BrandResponseDTO brandResponseDTO = new BrandResponseDTO("Brand's name", "Brand's description");
