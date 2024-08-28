@@ -55,7 +55,9 @@ class BrandHandlerTest {
     @Test
     void getBrandByName_ShouldReturnBrandResponseDTO(){
         String brandName = "Brand's name";
-        Brand brand = new Brand("Brand's name", "Brand's description");
+        Brand brand = new Brand();
+        brand.setName(brandName);
+        brand.setDescription("Brand's description");
         BrandResponseDTO brandResponseDTO = new BrandResponseDTO("Brand's name", "Brand's description");
 
         when(iBrandService.getBrandByName(brandName)).thenReturn(brand);

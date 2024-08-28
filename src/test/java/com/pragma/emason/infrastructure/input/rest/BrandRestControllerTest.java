@@ -2,6 +2,7 @@ package com.pragma.emason.infrastructure.input.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pragma.emason.application.dto.BrandRequestDTO;
+import com.pragma.emason.application.dto.BrandResponseDTO;
 import com.pragma.emason.application.handler.IBrandHandler;
 import com.pragma.emason.domain.exception.BrandNameAlreadyExistsException;
 import org.junit.jupiter.api.BeforeEach;
@@ -164,4 +165,38 @@ class BrandRestControllerTest {
                         .content(objectMapper.writeValueAsString(requestDTO)))
                 .andExpect(status().isBadRequest());
     }
+
+    @Test
+    void getBrandByName_ShouldReturnBrandResponseDTO() {
+        // Arrange
+        String brandName = "BrandTest";
+        BrandResponseDTO expectedResponse = new BrandResponseDTO(brandName, "Brand Description");
+
+        when(iBrandHandler.getBrandByName(brandName)).thenReturn(expectedResponse);
+
+        // Act
+        ResponseEntity<BrandResponseDTO> response = brandRestController.getBrandByName(brandName);
+
+        // Assert
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(expectedResponse, response.getBody());
+        verify(iBrandHandler, times(1)).getBrandByName(brandName);
+    }
+
+    @Test
+    void getBrandByName_ShouldReturnNotFoundWhenBrandDoesNotExist() {
+        // Arrange
+        String brandName = "NonExistentBrand";
+
+        when(iBrandHandler.getBrandByName(brandName)).thenReturn(null);
+
+        // Act
+        ResponseEntity<BrandResponseDTO> response = brandRestController.getBrandByName(brandName);
+
+        // Assert
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertNull(response.getBody());
+        verify(iBrandHandler, times(1)).getBrandByName(brandName);
+    }
+
 }
