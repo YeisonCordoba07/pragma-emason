@@ -58,6 +58,13 @@ public class BrandRestController {
         return ResponseEntity.ok(brandResponse);
     }
 
+    @Operation(summary = "Retrieve all brands",
+            description = "Returns a paginated list of brands, sorted by a specific field.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successful operation, list of brands returned"),
+            @ApiResponse(responseCode = "400", description = "Bad request, invalid parameters"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
+    })
     @GetMapping("/getAll")
     public ResponseEntity<PageResult<BrandResponseDTO>> getAllBrands(
             @RequestParam(defaultValue = "0") int page,
