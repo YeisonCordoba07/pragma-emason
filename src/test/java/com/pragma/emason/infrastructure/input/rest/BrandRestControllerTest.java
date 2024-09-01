@@ -5,6 +5,7 @@ import com.pragma.emason.application.dto.BrandRequestDTO;
 import com.pragma.emason.application.dto.BrandResponseDTO;
 import com.pragma.emason.application.handler.IBrandHandler;
 import com.pragma.emason.domain.exception.BrandNameAlreadyExistsException;
+import com.pragma.emason.domain.model.PageResult;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -16,11 +17,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+
 
 class BrandRestControllerTest {
 
@@ -198,5 +203,54 @@ class BrandRestControllerTest {
         assertNull(response.getBody());
         verify(iBrandHandler, times(1)).getBrandByName(brandName);
     }
+
+
+
+
+
+
+    @Test
+    void getAllBrands_WhenTheBrandsAreSuccessfullyObtained() throws Exception {
+        // Arrange
+        PageResult<BrandResponseDTO> mockPageResult = new PageResult<>();
+        // Simulate that there are 5 total pages
+        mockPageResult.setTotalPages(2);
+        mockPageResult.setPage(0);
+        mockPageResult.setSize(1);
+        mockPageResult.setTotalElements(2);
+        mockPageResult.setContent(List.of(new BrandResponseDTO("Brand1", "Description1"),
+                new BrandResponseDTO("Brand2", "Description2")));
+
+        when(iBrandHandler.getAllCategories(0, 1, "name", true)).thenReturn(mockPageResult);
+
+        // Act & Assert
+        mockMvc.perform(get("/brand/getAll")
+                        .param("page", "0")
+                        .param("size", "1")
+                        .param("sortBy", "name")
+                        .param("ascending", "true")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
+   @Test
+    void testGetAllBrands_PageOutOfRange() throws Exception {
+        // Arrange
+        PageResult<BrandResponseDTO> mockPageResult = new PageResult<>();
+        // Simulate that there are 5 total pages
+        mockPageResult.setTotalPages(5);
+
+        when(iBrandHandler.getAllCategories(10, 10, "name", true)).thenReturn(mockPageResult);
+
+        // Act & Assert
+        mockMvc.perform(get("/brand/getAll")
+                        .param("page", "10")
+                        .param("size", "10")
+                        .param("sortBy", "name")
+                        .param("ascending", "true")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNoContent());
+    }
+
 
 }

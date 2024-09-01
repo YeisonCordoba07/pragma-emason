@@ -71,6 +71,13 @@ public class BrandRestController {
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(defaultValue = "name") String sortBy,
             @RequestParam(defaultValue = "true") boolean ascending) {
-        return ResponseEntity.ok(iBrandHandler.getAllCategories(page, size, sortBy, ascending));
+        PageResult<BrandResponseDTO> result = iBrandHandler.getAllCategories(page, size, sortBy, ascending);
+
+        if (page >= result.getTotalPages()) {
+
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build(); // Opción 2: Retornar 204
+        }
+
+        return ResponseEntity.ok(result);
     }
 }
