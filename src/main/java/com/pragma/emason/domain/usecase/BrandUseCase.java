@@ -3,6 +3,7 @@ package com.pragma.emason.domain.usecase;
 import com.pragma.emason.domain.api.IBrandService;
 import com.pragma.emason.domain.exception.BrandNameAlreadyExistsException;
 import com.pragma.emason.domain.model.Brand;
+import com.pragma.emason.domain.model.PageResult;
 import com.pragma.emason.domain.spi.IBrandPersistence;
 
 public class BrandUseCase implements IBrandService {
@@ -23,6 +24,11 @@ public class BrandUseCase implements IBrandService {
     @Override
     public Brand getBrandByName(String name) {
         return this.iBrandPersistence.getBrandByName(name);
+    }
+
+    @Override
+    public PageResult<Brand> getAllCategories(int page, int size, String sortBy, boolean ascending) {
+        return iBrandPersistence.getAllCategories(page, size, sortBy,ascending);
     }
 
 

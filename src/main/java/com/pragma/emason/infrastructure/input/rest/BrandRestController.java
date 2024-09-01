@@ -3,6 +3,7 @@ package com.pragma.emason.infrastructure.input.rest;
 import com.pragma.emason.application.dto.BrandRequestDTO;
 import com.pragma.emason.application.dto.BrandResponseDTO;
 import com.pragma.emason.application.handler.IBrandHandler;
+import com.pragma.emason.domain.model.PageResult;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -55,5 +56,14 @@ public class BrandRestController {
             String name) {
         BrandResponseDTO brandResponse = iBrandHandler.getBrandByName(name);
         return ResponseEntity.ok(brandResponse);
+    }
+
+    @GetMapping("/getAll")
+    public ResponseEntity<PageResult<BrandResponseDTO>> getAllBrands(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "name") String sortBy,
+            @RequestParam(defaultValue = "true") boolean ascending) {
+        return ResponseEntity.ok(iBrandHandler.getAllCategories(page, size, sortBy, ascending));
     }
 }
