@@ -221,7 +221,7 @@ class BrandRestControllerTest {
         mockPageResult.setContent(List.of(new BrandResponseDTO("Brand1", "Description1"),
                 new BrandResponseDTO("Brand2", "Description2")));
 
-        when(iBrandHandler.getAllCategories(0, 1, "name", true)).thenReturn(mockPageResult);
+        when(iBrandHandler.getAllBrands(0, 1, "name", true)).thenReturn(mockPageResult);
 
         // Act & Assert
         mockMvc.perform(get("/brand/getAll")
@@ -240,7 +240,7 @@ class BrandRestControllerTest {
         // Simulate that there are 5 total pages
         mockPageResult.setTotalPages(5);
 
-        when(iBrandHandler.getAllCategories(10, 10, "name", true)).thenReturn(mockPageResult);
+        when(iBrandHandler.getAllBrands(10, 10, "name", true)).thenReturn(mockPageResult);
 
         // Act & Assert
         mockMvc.perform(get("/brand/getAll")
