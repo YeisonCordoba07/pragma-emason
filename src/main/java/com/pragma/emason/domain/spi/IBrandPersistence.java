@@ -9,5 +9,5 @@ public interface IBrandPersistence {
 
     Brand getBrandByName(String name);
 
-    PageResult<Brand> getAllCategories(int page, int size, String sortBy, boolean ascending);
+    PageResult<Brand> getAllBrands(int page, int size, String sortBy, boolean ascending);
 }

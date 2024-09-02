@@ -27,8 +27,8 @@ public class BrandUseCase implements IBrandService {
     }
 
     @Override
-    public PageResult<Brand> getAllCategories(int page, int size, String sortBy, boolean ascending) {
-        return iBrandPersistence.getAllCategories(page, size, sortBy,ascending);
+    public PageResult<Brand> getAllBrands(int page, int size, String sortBy, boolean ascending) {
+        return iBrandPersistence.getAllBrands(page, size, sortBy,ascending);
     }
 
 

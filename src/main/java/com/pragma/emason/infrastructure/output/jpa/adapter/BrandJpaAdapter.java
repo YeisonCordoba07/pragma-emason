@@ -30,7 +30,7 @@ public class BrandJpaAdapter implements IBrandPersistence {
     }
 
     @Override
-    public PageResult<Brand> getAllCategories(int page, int size, String sortBy, boolean ascending) {
+    public PageResult<Brand> getAllBrands(int page, int size, String sortBy, boolean ascending) {
         Sort.Direction direction = ascending ? Sort.Direction.ASC : Sort.Direction.DESC;
         Sort sort = Sort.by(direction, sortBy);
         Pageable pageable = PageRequest.of(page, size, sort);

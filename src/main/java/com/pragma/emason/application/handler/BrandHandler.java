@@ -40,7 +40,7 @@ public class BrandHandler implements IBrandHandler{
 
     @Override
     public PageResult<BrandResponseDTO> getAllCategories(int page, int size, String sortBy, boolean ascending) {
-        PageResult<Brand> brand = iBrandService.getAllCategories(page, size, sortBy, ascending);
+        PageResult<Brand> brand = iBrandService.getAllBrands(page, size, sortBy, ascending);
         return new PageResult<>(
                 iBrandResponseMapper.toResponseList(brand.getContent()),
                 brand.getPage(),
