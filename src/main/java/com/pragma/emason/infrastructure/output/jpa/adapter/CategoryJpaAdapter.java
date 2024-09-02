@@ -22,9 +22,9 @@ public class CategoryJpaAdapter implements ICategoryPersistence {
 
     @Override
     public void saveCategory(Category category) {
-
         iCategoryRepository.save(iCategoryEntityMapper.toEntity(category));
     }
+
 
     @Override
     public PageResult<Category> getAllCategories(int page, int size, String sortBy, boolean ascending) {
@@ -53,6 +53,7 @@ public class CategoryJpaAdapter implements ICategoryPersistence {
                 categoryEntityPage.getTotalElements()
         );
     }
+
 
     @Override
     public Category getCategoryByName(String name) {

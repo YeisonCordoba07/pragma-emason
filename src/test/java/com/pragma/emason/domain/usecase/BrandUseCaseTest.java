@@ -2,6 +2,7 @@ package com.pragma.emason.domain.usecase;
 
 import com.pragma.emason.domain.exception.BrandNameAlreadyExistsException;
 import com.pragma.emason.domain.model.Brand;
+import com.pragma.emason.domain.model.PageResult;
 import com.pragma.emason.domain.spi.IBrandPersistence;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,6 +10,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -95,5 +99,33 @@ class BrandUseCaseTest {
         // Assert
         assertNull(actualBrand);
         verify(iBrandPersistence, times(1)).getBrandByName(brandName);
+    }
+
+
+
+
+    @Test
+    void getAllBrandsSuccessfully(){
+        // Arrange
+        int page = 1;
+        int size = 10;
+        String sortBy = "name";
+        boolean ascending = true;
+
+        Brand brand1 = new Brand("Brand 1", "Description 1");
+        Brand brand2 = new Brand("Brand 2", "Description 2");
+        List<Brand> brands = List.of(brand1, brand2);
+
+        PageResult<Brand> expectedPageResult = new PageResult<>(brands,page,size,10);
+
+        when(iBrandPersistence.getAllBrands(page, size, sortBy, ascending))
+                .thenReturn(expectedPageResult);
+
+        // Act
+        PageResult<Brand> actualPageResult = brandUseCase.getAllBrands(page, size, sortBy, ascending);
+
+        // Assert
+        assertThat(actualPageResult).isEqualTo(expectedPageResult);
+        verify(iBrandPersistence, times(1)).getAllBrands(page, size, sortBy, ascending);
     }
 }

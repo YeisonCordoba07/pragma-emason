@@ -3,6 +3,7 @@ package com.pragma.emason.infrastructure.input.rest;
 import com.pragma.emason.application.dto.BrandRequestDTO;
 import com.pragma.emason.application.dto.BrandResponseDTO;
 import com.pragma.emason.application.handler.IBrandHandler;
+import com.pragma.emason.domain.model.PageResult;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
+
+
 
 @RestController
 @RequestMapping("/brand")
@@ -37,6 +40,7 @@ public class BrandRestController {
     }
 
 
+
     @Operation(summary = "Get brand by name",
             description = "Fetches a brand's details by its name.")
     @ApiResponses(value = {
@@ -55,5 +59,29 @@ public class BrandRestController {
             String name) {
         BrandResponseDTO brandResponse = iBrandHandler.getBrandByName(name);
         return ResponseEntity.ok(brandResponse);
+    }
+
+
+
+    @Operation(summary = "Retrieve all brands",
+            description = "Returns a paginated list of brands, sorted by a specific field.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successful operation, list of brands returned"),
+            @ApiResponse(responseCode = "400", description = "Bad request, invalid parameters"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
+    })
+    @GetMapping("/getAll")
+    public ResponseEntity<PageResult<BrandResponseDTO>> getAllBrands(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "name") String sortBy,
+            @RequestParam(defaultValue = "true") boolean ascending) {
+        PageResult<BrandResponseDTO> result = iBrandHandler.getAllBrands(page, size, sortBy, ascending);
+
+        if (page >= result.getTotalPages()) {
+
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
+        return ResponseEntity.ok(result);
     }
 }
