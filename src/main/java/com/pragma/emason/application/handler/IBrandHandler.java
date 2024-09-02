@@ -8,5 +8,5 @@ public interface IBrandHandler {
     void saveBrandInDataBase(BrandRequestDTO brandRequestDTO);
     BrandResponseDTO getBrandByName(String name);
 
-    PageResult<BrandResponseDTO> getAllCategories(int page, int size, String sortBy, boolean ascending);
+    PageResult<BrandResponseDTO> getAllBrands(int page, int size, String sortBy, boolean ascending);
 }

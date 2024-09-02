@@ -71,7 +71,7 @@ public class BrandRestController {
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(defaultValue = "name") String sortBy,
             @RequestParam(defaultValue = "true") boolean ascending) {
-        PageResult<BrandResponseDTO> result = iBrandHandler.getAllCategories(page, size, sortBy, ascending);
+        PageResult<BrandResponseDTO> result = iBrandHandler.getAllBrands(page, size, sortBy, ascending);
 
         if (page >= result.getTotalPages()) {
 
