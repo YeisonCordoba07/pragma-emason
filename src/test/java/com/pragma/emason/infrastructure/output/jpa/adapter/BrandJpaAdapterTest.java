@@ -1,6 +1,7 @@
 package com.pragma.emason.infrastructure.output.jpa.adapter;
 
 import com.pragma.emason.domain.model.Brand;
+import com.pragma.emason.domain.model.PageResult;
 import com.pragma.emason.infrastructure.output.jpa.entity.BrandEntity;
 import com.pragma.emason.infrastructure.output.jpa.mapper.IBrandEntityMapper;
 import com.pragma.emason.infrastructure.output.jpa.repository.IBrandRepository;
@@ -12,6 +13,16 @@ import org.junit.jupiter.api.BeforeEach;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import org.springframework.data.domain.Sort;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -96,5 +107,81 @@ class BrandJpaAdapterTest {
         assertNull(resultBrand);
         verify(iBrandRepository, times(1)).findBrandEntityByName(brandName);
         verify(iBrandEntityMapper, times(1)).toBrand(null);
+    }
+
+
+    @Test
+    void getAllBrands_WhenTheBrandsAreSortAsc() {
+        // Arrange
+        int page = 0;
+        int size = 10;
+        String sortBy = "name";
+        boolean ascending = true;
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, sortBy));
+
+        BrandEntity brandEntity1 = new BrandEntity();
+        brandEntity1.setName("Brand 1");
+        brandEntity1.setDescription("Description 1");
+
+        BrandEntity brandEntity2 = new BrandEntity();
+        brandEntity2.setName("Brand 2");
+        brandEntity2.setDescription("Description 2");
+
+        Page<BrandEntity> brandEntityPage = new PageImpl<>(List.of(brandEntity1, brandEntity2), pageable, 2);
+
+        when(iBrandRepository.findAll(pageable)).thenReturn(brandEntityPage);
+        when(iBrandEntityMapper.toBrand(brandEntity1)).thenReturn(new Brand("Brand 1", "Description 1"));
+        when(iBrandEntityMapper.toBrand(brandEntity2)).thenReturn(new Brand("Brand 2", "Description 2"));
+
+        // Act
+        PageResult<Brand> result = brandJpaAdapter.getAllBrands(page, size, sortBy, ascending);
+
+        // Assert
+        assertThat(result.getContent()).hasSize(2);
+        assertThat(result.getContent().get(0).getName()).isEqualTo("Brand 1");
+        assertThat(result.getContent().get(1).getName()).isEqualTo("Brand 2");
+        assertThat(result.getTotalElements()).isEqualTo(2);
+
+        verify(iBrandRepository, times(1)).findAll(pageable);
+        verify(iBrandEntityMapper, times(1)).toBrand(brandEntity1);
+        verify(iBrandEntityMapper, times(1)).toBrand(brandEntity2);
+    }
+
+    @Test
+    void getAllBrands_WhenTheBrandsAreSortDesc() {
+        // Arrange
+        int page = 0;
+        int size = 10;
+        String sortBy = "name";
+        boolean ascending = false;
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, sortBy));
+
+        BrandEntity brandEntity1 = new BrandEntity();
+        brandEntity1.setName("Brand 1");
+        brandEntity1.setDescription("Description 1");
+
+        BrandEntity brandEntity2 = new BrandEntity();
+        brandEntity2.setName("Brand 2");
+        brandEntity2.setDescription("Description 2");
+
+        Page<BrandEntity> brandEntityPage = new PageImpl<>(List.of(brandEntity2, brandEntity1), pageable, 2);
+
+        when(iBrandRepository.findAll(pageable)).thenReturn(brandEntityPage);
+        when(iBrandEntityMapper.toBrand(brandEntity2)).thenReturn(new Brand("Brand 2", "Description 2"));
+        when(iBrandEntityMapper.toBrand(brandEntity1)).thenReturn(new Brand("Brand 1", "Description 1"));
+
+
+        // Act
+        PageResult<Brand> result = brandJpaAdapter.getAllBrands(page, size, sortBy, ascending);
+
+        // Assert
+        assertThat(result.getContent()).hasSize(2);
+        assertThat(result.getContent().get(0).getName()).isEqualTo("Brand 2");
+        assertThat(result.getContent().get(1).getName()).isEqualTo("Brand 1");
+        assertThat(result.getTotalElements()).isEqualTo(2);
+
+        verify(iBrandRepository, times(1)).findAll(pageable);
+        verify(iBrandEntityMapper, times(1)).toBrand(brandEntity2);
+        verify(iBrandEntityMapper, times(1)).toBrand(brandEntity1);
     }
 }
