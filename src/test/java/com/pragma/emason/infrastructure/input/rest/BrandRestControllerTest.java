@@ -171,6 +171,9 @@ class BrandRestControllerTest {
                 .andExpect(status().isBadRequest());
     }
 
+
+
+
     @Test
     void getBrandByName_ShouldReturnBrandResponseDTO() {
         // Arrange
@@ -207,8 +210,6 @@ class BrandRestControllerTest {
 
 
 
-
-
     @Test
     void getAllBrands_WhenTheBrandsAreSuccessfullyObtained() throws Exception {
         // Arrange
@@ -232,6 +233,7 @@ class BrandRestControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
+
 
    @Test
     void testGetAllBrands_PageOutOfRange() throws Exception {

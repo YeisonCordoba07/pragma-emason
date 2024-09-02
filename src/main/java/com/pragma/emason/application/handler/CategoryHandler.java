@@ -20,6 +20,7 @@ public class CategoryHandler implements ICategoryHandler{
     private final ICategoryService iCategoryService;
     private final ICategoryResponseMapper iCategoryResponseMapper;
 
+
     public CategoryHandler(
             ICategoryRequestMapper iCategoryRequestMapper,
             ICategoryService iCategoryService,
@@ -59,10 +60,7 @@ public class CategoryHandler implements ICategoryHandler{
                 categoryPage.getPage(),
                 categoryPage.getSize(),
                 categoryPage.getTotalElements()
-
         );
     }
-
-
 
 }

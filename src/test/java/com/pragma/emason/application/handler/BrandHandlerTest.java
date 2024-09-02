@@ -55,6 +55,7 @@ class BrandHandlerTest {
         verify(iBrandService).saveBrand(brand);
     }
 
+
     @Test
     void getBrandByName_ShouldReturnBrandResponseDTO(){
         String brandName = "Brand's name";
@@ -71,6 +72,7 @@ class BrandHandlerTest {
         verify(iBrandService, times(1)).getBrandByName(brandName);
         verify(iBrandResponseMapper, times(1)).toResponse(brand);
     }
+
 
 
 

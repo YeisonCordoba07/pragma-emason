@@ -17,6 +17,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 
+
+
 @RestController
 @RequestMapping("/brand")
 @RequiredArgsConstructor
@@ -36,6 +38,7 @@ public class BrandRestController {
         iBrandHandler.saveBrandInDataBase(brandRequestDTO);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
+
 
 
     @Operation(summary = "Get brand by name",
@@ -58,6 +61,8 @@ public class BrandRestController {
         return ResponseEntity.ok(brandResponse);
     }
 
+
+
     @Operation(summary = "Retrieve all brands",
             description = "Returns a paginated list of brands, sorted by a specific field.")
     @ApiResponses(value = {
@@ -75,9 +80,8 @@ public class BrandRestController {
 
         if (page >= result.getTotalPages()) {
 
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build(); // Opción 2: Retornar 204
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }
-
         return ResponseEntity.ok(result);
     }
 }

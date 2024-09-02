@@ -70,8 +70,6 @@ class BrandUseCaseTest {
 
 
 
-
-
     @Test
     void getBrandByName_WhenBrandExist_ShouldGettingBrandSuccessfully(){
         // Arrange
@@ -102,8 +100,6 @@ class BrandUseCaseTest {
         assertNull(actualBrand);
         verify(iBrandPersistence, times(1)).getBrandByName(brandName);
     }
-
-
 
 
 

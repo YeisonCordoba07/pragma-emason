@@ -24,10 +24,12 @@ public class BrandJpaAdapter implements IBrandPersistence {
         iBrandRepository.save(brandEntity);
     }
 
+
     @Override
     public Brand getBrandByName(String name) {
         return iBrandEntityMapper.toBrand(iBrandRepository.findBrandEntityByName(name));
     }
+
 
     @Override
     public PageResult<Brand> getAllBrands(int page, int size, String sortBy, boolean ascending) {

@@ -23,10 +23,12 @@ public class CategoryUseCase implements ICategoryService {
         this.iCategoryPersistence.saveCategory(category);
     }
 
+
     @Override
     public PageResult<Category> getAllCategories(int page, int size, String sortBy, boolean ascending) {
         return iCategoryPersistence.getAllCategories(page, size, sortBy,ascending);
     }
+
 
     @Override
     public Category getCategoryByName(String name) {

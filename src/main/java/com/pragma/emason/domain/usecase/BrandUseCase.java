@@ -13,6 +13,7 @@ public class BrandUseCase implements IBrandService {
         this.iBrandPersistence = iBrandPersistence;
     }
 
+
     @Override
     public void saveBrand(Brand brand) {
         if(this.iBrandPersistence.getBrandByName(brand.getName()) != null){
@@ -21,10 +22,12 @@ public class BrandUseCase implements IBrandService {
         this.iBrandPersistence.saveBrand(brand);
     }
 
+
     @Override
     public Brand getBrandByName(String name) {
         return this.iBrandPersistence.getBrandByName(name);
     }
+
 
     @Override
     public PageResult<Brand> getAllBrands(int page, int size, String sortBy, boolean ascending) {

@@ -44,6 +44,7 @@ class BrandJpaAdapterTest {
         MockitoAnnotations.openMocks(this);
     }
 
+
     @Test
     void saveBrand_ShouldConvertAndSaveBrand() {
         // Arrange
@@ -62,6 +63,7 @@ class BrandJpaAdapterTest {
         verify(iBrandEntityMapper).toEntity(brand);
         verify(iBrandRepository).save(brandEntity);
     }
+
 
     @Test
     void getBrandByName_ShouldReturnBrandSuccessfully(){
@@ -90,6 +92,7 @@ class BrandJpaAdapterTest {
         verify(iBrandEntityMapper, times(1)).toBrand(brandEntity);
     }
 
+
     @Test
     void getBrandByName_ShouldReturnNull(){
         // Arrange
@@ -106,6 +109,8 @@ class BrandJpaAdapterTest {
         verify(iBrandRepository, times(1)).findBrandEntityByName(brandName);
         verify(iBrandEntityMapper, times(1)).toBrand(null);
     }
+
+
 
 
     @Test
@@ -144,6 +149,7 @@ class BrandJpaAdapterTest {
         verify(iBrandEntityMapper, times(1)).toBrand(brandEntity1);
         verify(iBrandEntityMapper, times(1)).toBrand(brandEntity2);
     }
+
 
     @Test
     void getAllBrands_WhenTheBrandsAreSortDesc() {

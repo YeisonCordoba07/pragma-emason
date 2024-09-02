@@ -18,6 +18,8 @@ public class BrandHandler implements IBrandHandler{
     private final IBrandRequestMapper iBrandRequestMapper;
     private final IBrandResponseMapper iBrandResponseMapper;
 
+
+
     public BrandHandler(
             IBrandService iBrandService,
             IBrandRequestMapper iBrandRequestMapper,
@@ -27,16 +29,19 @@ public class BrandHandler implements IBrandHandler{
         this.iBrandResponseMapper = iBrandResponseMapper;
     }
 
+
     @Override
     public void saveBrandInDataBase(BrandRequestDTO brandRequestDTO) {
         Brand brand = this.iBrandRequestMapper.toBrand(brandRequestDTO);
         this.iBrandService.saveBrand(brand);
     }
 
+
     @Override
     public BrandResponseDTO getBrandByName(String name) {
         return iBrandResponseMapper.toResponse(iBrandService.getBrandByName(name));
     }
+
 
     @Override
     public PageResult<BrandResponseDTO> getAllBrands(int page, int size, String sortBy, boolean ascending) {
