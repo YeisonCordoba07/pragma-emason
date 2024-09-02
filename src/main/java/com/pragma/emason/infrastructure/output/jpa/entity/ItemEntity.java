@@ -36,6 +36,10 @@ public class ItemEntity {
     @Column(nullable = false)
     private Integer brandId;
 
+   /* @ManyToOne
+    @JoinColumn(name = "brand_id", referencedColumnName = "id", nullable = false)
+    private BrandEntity brandId;*/
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "item_category",
