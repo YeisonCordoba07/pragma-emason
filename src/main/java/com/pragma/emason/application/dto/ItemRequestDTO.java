@@ -1,6 +1,5 @@
 package com.pragma.emason.application.dto;
 
-import com.pragma.emason.domain.model.Category;
 import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -32,7 +31,7 @@ public class ItemRequestDTO {
     private Double price;
 
     @NotNull
-    private Integer brandId;
+    private String brandName;
 
     @NotNull
     @Size.List({

@@ -1,6 +1,6 @@
 package com.pragma.emason.infrastructure.output.jpa.entity;
 
-import com.pragma.emason.domain.model.Category;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -33,12 +33,10 @@ public class ItemEntity {
     @Column(nullable = false)
     private Double price;
 
-    @Column(nullable = false)
-    private Integer brandId;
 
-   /* @ManyToOne
-    @JoinColumn(name = "brand_id", referencedColumnName = "id", nullable = false)
-    private BrandEntity brandId;*/
+   @ManyToOne
+   @JoinColumn(name = "brand_id", referencedColumnName = "id", nullable = false)
+   private BrandEntity brand;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(

@@ -10,7 +10,7 @@ public class Item {
     private String description;
     private Integer quantity;
     private Double price;
-    private Integer brandId;
+    private Brand brand;
     private Set<Category> categories;
 
     public Integer getId() {
@@ -28,13 +28,13 @@ public class Item {
                 String description,
                 Integer quantity,
                 Double price,
-                Integer brandId,
+                Brand brand,
                 Set<Category> categories) {
         this.name = name;
         this.description = description;
         this.quantity = quantity;
         this.price = price;
-        this.brandId = brandId;
+        this.brand = brand;
         setCategories(categories);
     }
 
@@ -72,12 +72,12 @@ public class Item {
         this.price = price;
     }
 
-    public Integer getBrandId() {
-        return brandId;
+    public Brand getBrand() {
+        return brand;
     }
 
-    public void setBrandId(Integer brandId) {
-        this.brandId = brandId;
+    public void setBrand(Brand brand) {
+        this.brand = brand;
     }
 
     public Set<Category> getCategories() {

@@ -1,6 +1,7 @@
 package com.pragma.emason.application.mapper;
 
 import com.pragma.emason.application.dto.ItemRequestDTO;
+import com.pragma.emason.domain.model.Brand;
 import com.pragma.emason.domain.model.Category;
 import com.pragma.emason.domain.model.Item;
 import org.mapstruct.Mapper;
@@ -26,12 +27,15 @@ public interface IItemRequestMapper {
                 })
                 .collect(Collectors.toSet());
 
+        Brand brand = new Brand();
+        brand.setName(itemRequestDTO.getBrandName());
+
         return new Item(
                 itemRequestDTO.getName(),
                 itemRequestDTO.getDescription(),
                 itemRequestDTO.getQuantity(),
                 itemRequestDTO.getPrice(),
-                itemRequestDTO.getBrandId(),
+                brand,
                 categories
         );
     }

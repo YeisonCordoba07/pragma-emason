@@ -68,7 +68,7 @@ public class BeanConfiguration {
     @Bean
     public IItemService iItemService(){
         // Modifica aquí para pasar también la implementación de ICategoryPersistence
-        return new ItemUseCase(iItemPersistence(), categoryRepository());
+        return new ItemUseCase(iItemPersistence(), categoryRepository(), iBrandPersistence());
     }
 
 
