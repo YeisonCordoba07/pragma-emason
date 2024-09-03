@@ -15,14 +15,12 @@ import java.util.stream.Collectors;
         unmappedSourcePolicy = ReportingPolicy.IGNORE)
 public interface IItemRequestMapper {
 
-    //Item toItem(ItemRequestDTO itemRequestDTO);
 
-
-    default Item toCategorySet(ItemRequestDTO itemRequestDTO) {
+    default Item toItemSet(ItemRequestDTO itemRequestDTO) {
         Set<Category> categories = itemRequestDTO.getCategories().stream()
                 .map(name -> {
                     Category category = new Category();
-                    category.setName(name); // Asumiendo que Category tiene un atributo name
+                    category.setName(name);
                     return category;
                 })
                 .collect(Collectors.toSet());
