@@ -25,7 +25,7 @@ public class ItemHandler implements IItemHandler {
 
     @Override
     public void saveItemInDataBase(ItemRequestDTO itemRequestDTO) {
-        Item item = this.iItemRequestMapper.toCategorySet(itemRequestDTO);
+        Item item = this.iItemRequestMapper.toItemSet(itemRequestDTO);
         this.iItemService.saveItem(item);
     }
 }

@@ -13,13 +13,6 @@ public class Item {
     private Brand brand;
     private Set<Category> categories;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public Item() {
     }
@@ -39,6 +32,13 @@ public class Item {
     }
 
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
