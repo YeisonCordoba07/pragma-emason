@@ -3,6 +3,7 @@ package com.pragma.emason.application.handler;
 import com.pragma.emason.application.dto.ItemRequestDTO;
 import com.pragma.emason.application.mapper.IItemRequestMapper;
 import com.pragma.emason.domain.api.IItemService;
+import com.pragma.emason.domain.model.Item;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,6 +25,7 @@ public class ItemHandler implements IItemHandler {
 
     @Override
     public void saveItemInDataBase(ItemRequestDTO itemRequestDTO) {
-        this.iItemService.saveItem(this.iItemRequestMapper.toItem(itemRequestDTO));
+        Item item = this.iItemRequestMapper.toCategorySet(itemRequestDTO);
+        this.iItemService.saveItem(item);
     }
 }

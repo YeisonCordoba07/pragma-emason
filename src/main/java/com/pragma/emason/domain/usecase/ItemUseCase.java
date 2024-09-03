@@ -6,7 +6,8 @@ import com.pragma.emason.domain.model.Item;
 import com.pragma.emason.domain.spi.ICategoryPersistence;
 import com.pragma.emason.domain.spi.IItemPersistence;
 
-import java.util.Optional;
+import java.util.HashSet;
+import java.util.Set;
 
 public class ItemUseCase implements IItemService {
 
@@ -20,23 +21,19 @@ public class ItemUseCase implements IItemService {
 
     @Override
     public void saveItem(Item item) {
+        Set<Category> categories = new HashSet<>();
 
-        // Recorrer el conjunto de categorías en el Item
-        for (Category category : item.getCategories()) {
-            // Verificar si la categoría existe en la base de datos
-            Optional<Category> existingCategory = Optional.ofNullable(
-                    iCategoryPersistence.getCategoryByName(category.getName()));
+        for (Category categoryName : item.getCategories()) {
+            Category existingCategory = iCategoryPersistence.getCategoryByName(categoryName.getName());
 
-            if (existingCategory.isPresent() && existingCategory.get().getId().equals(category.getId())) {
-                // Si la categoría existe, se asocia con el Item
-                category = existingCategory.get();
-            } else {
-                // Si la categoría no existe, puedes lanzar una excepción o manejarlo según sea necesario
-                throw new RuntimeException("La categoría " + category.getName() + " no existe en la base de datos o su id no se corresponde con el nombre usado.");
+            if (existingCategory == null) {
+                throw new RuntimeException("La categoría " + categoryName.getName() + " no existe en la base de datos.");
             }
+
+            categories.add(existingCategory);
         }
 
+        item.setCategories(categories);
         iItemPersistence.saveItem(item);
-
     }
 }
