@@ -43,7 +43,7 @@ public class ItemUseCase implements IItemService {
 
         Brand existingBrand = iBrandPersistence.getBrandByName(item.getBrand().getName());
         if(existingBrand == null){
-            throw new BrandNotFoundException("The Brand " + item.getBrand() + " not exists in database.");
+            throw new BrandNotFoundException("The Brand " + item.getBrand().getName() + " not exists in database.");
         }
 
         item.setBrand(existingBrand);
