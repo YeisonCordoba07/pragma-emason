@@ -19,12 +19,20 @@ import java.util.Set;
 @NoArgsConstructor
 public class CategoryEntity {
 
+    public CategoryEntity(int id, String name, String description) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @NotNull
+
+    @Column(unique = true, nullable = false)
     private String name;
-    @NotNull
+
+    @Column(nullable = false)
     private String description;
 
     @ManyToMany(mappedBy = "categories")
