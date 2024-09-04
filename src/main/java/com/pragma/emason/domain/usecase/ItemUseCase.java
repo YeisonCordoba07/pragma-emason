@@ -9,6 +9,7 @@ import com.pragma.emason.domain.spi.ICategoryPersistence;
 import com.pragma.emason.domain.spi.IItemPersistence;
 import com.pragma.emason.domain.exception.BrandNotFoundException;
 import com.pragma.emason.domain.exception.CategoryNotFoundException;
+import com.pragma.emason.domain.utils.FinalContants;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -35,7 +36,7 @@ public class ItemUseCase implements IItemService {
             Category existingCategory = iCategoryPersistence.getCategoryByName(categoryName.getName());
 
             if (existingCategory == null) {
-                throw new CategoryNotFoundException("The Category " + categoryName.getName() + " not exists in database.");
+                throw new CategoryNotFoundException(String.format(FinalContants.CATEGORY_NOT_FOUND, categoryName.getName()));
             }
 
             categories.add(existingCategory);
@@ -43,7 +44,7 @@ public class ItemUseCase implements IItemService {
 
         Brand existingBrand = iBrandPersistence.getBrandByName(item.getBrand().getName());
         if(existingBrand == null){
-            throw new BrandNotFoundException("The Brand " + item.getBrand().getName() + " not exists in database.");
+            throw new BrandNotFoundException(String.format(FinalContants.BRAND_NOT_FOUND, item.getBrand().getName()));
         }
 
         item.setBrand(existingBrand);
