@@ -1,22 +1,22 @@
 package com.pragma.emason.infrastructure.input.rest;
 
 import com.pragma.emason.application.dto.ItemRequestDTO;
+import com.pragma.emason.application.dto.ItemResponseDTO;
 import com.pragma.emason.application.handler.IItemHandler;
+import com.pragma.emason.domain.model.PageResult;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.ErrorResponse;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/item")
@@ -43,5 +43,20 @@ public class ItemRestController {
     public ResponseEntity<Void> saveItem(@Valid @RequestBody ItemRequestDTO itemRequestDTO){
         iItemHandler.saveItemInDataBase(itemRequestDTO);
         return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+
+
+
+
+
+    @GetMapping("/getAll")
+    public ResponseEntity<PageResult<ItemResponseDTO>> getAllItems(
+            @RequestParam int page,
+            @RequestParam int size,
+            @RequestParam String sortBy,
+            @RequestParam String table,
+            @RequestParam boolean ascending){
+        return ResponseEntity.ok(iItemHandler.getAllItems(page, size, sortBy, table, ascending));
     }
 }

@@ -4,6 +4,7 @@ import com.pragma.emason.domain.api.IItemService;
 import com.pragma.emason.domain.model.Brand;
 import com.pragma.emason.domain.model.Category;
 import com.pragma.emason.domain.model.Item;
+import com.pragma.emason.domain.model.PageResult;
 import com.pragma.emason.domain.spi.IBrandPersistence;
 import com.pragma.emason.domain.spi.ICategoryPersistence;
 import com.pragma.emason.domain.spi.IItemPersistence;
@@ -50,5 +51,10 @@ public class ItemUseCase implements IItemService {
         item.setBrand(existingBrand);
         item.setCategories(categories);
         iItemPersistence.saveItem(item);
+    }
+
+    @Override
+    public PageResult<Item> getAllItems(int page, int size, String sortBy, String table, boolean ascending) {
+        return iItemPersistence.getAllBrands(page, size, sortBy, table, ascending);
     }
 }

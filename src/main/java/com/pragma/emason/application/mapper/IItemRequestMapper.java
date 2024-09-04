@@ -1,12 +1,14 @@
 package com.pragma.emason.application.mapper;
 
 import com.pragma.emason.application.dto.ItemRequestDTO;
+import com.pragma.emason.application.dto.ItemResponseDTO;
 import com.pragma.emason.domain.model.Brand;
 import com.pragma.emason.domain.model.Category;
 import com.pragma.emason.domain.model.Item;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -37,4 +39,5 @@ public interface IItemRequestMapper {
                 categories
         );
     }
+    
 }
