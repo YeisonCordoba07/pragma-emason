@@ -3,7 +3,6 @@ package com.pragma.emason.infrastructure.output.jpa.adapter;
 import com.pragma.emason.domain.model.Item;
 import com.pragma.emason.domain.model.PageResult;
 import com.pragma.emason.domain.spi.IItemPersistence;
-import com.pragma.emason.infrastructure.output.jpa.entity.BrandEntity;
 import com.pragma.emason.infrastructure.output.jpa.entity.ItemEntity;
 import com.pragma.emason.infrastructure.output.jpa.mapper.IItemEntityMapper;
 import com.pragma.emason.infrastructure.output.jpa.repository.IItemRepository;
@@ -29,7 +28,8 @@ public class ItemJpaAdapter implements IItemPersistence {
         Sort.Direction direction = ascending ? Sort.Direction.ASC : Sort.Direction.DESC;
         Sort sort = Sort.by(direction, sortBy);
         Pageable pageable = PageRequest.of(page, size, sort);
-        Page<ItemEntity> pageList = iItemRepository.findAll(pageable);
+
+        Page<ItemEntity> pageList = iItemRepository.findAllItems(table, pageable);
 
         return new PageResult<>(
                 pageList.getContent().stream()
