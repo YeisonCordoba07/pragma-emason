@@ -5,6 +5,7 @@ import com.pragma.emason.application.dto.ItemResponseDTO;
 import com.pragma.emason.application.handler.IItemHandler;
 import com.pragma.emason.domain.model.PageResult;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -40,6 +41,7 @@ public class ItemRestController {
     })
     @PostMapping
     public ResponseEntity<Void> saveItem(@Valid @RequestBody ItemRequestDTO itemRequestDTO){
+
         iItemHandler.saveItemInDataBase(itemRequestDTO);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
@@ -50,11 +52,31 @@ public class ItemRestController {
 
 
     @GetMapping("/getAll")
+    @Operation(summary = "Retrieve all items with pagination, sorting, and filtering",
+            description = "Fetches a paginated list of items from the database. The results can be sorted by a specific field, filtered by table, and ordered in ascending or descending order.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully retrieved the list of items",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = PageResult.class))),
+            @ApiResponse(responseCode = "400", description = "Invalid input parameters",
+                    content = @Content),
+            @ApiResponse(responseCode = "500", description = "Internal server error",
+                    content = @Content)
+    })
     public ResponseEntity<PageResult<ItemResponseDTO>> getAllItems(
+            @Parameter(description = "Page number for pagination (zero-based index)", example = "0")
             @RequestParam int page,
+
+            @Parameter(description = "Number of items per page", example = "10")
             @RequestParam int size,
+
+            @Parameter(description = "Field to sort the items by", example = "name")
             @RequestParam String sortBy,
+
+            @Parameter(description = "Table to apply the sort on", schema = @Schema(type = "string", allowableValues = {"item", "category", "brand"}))
             @RequestParam String table,
+
+            @Parameter(description = "True for ascending order, false for descending order", example = "true")
             @RequestParam boolean ascending)
     {
         return ResponseEntity.ok(iItemHandler.getAllItems(page, size, sortBy, table, ascending));
