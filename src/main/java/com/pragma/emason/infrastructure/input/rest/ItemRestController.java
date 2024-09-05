@@ -10,7 +10,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -56,7 +55,8 @@ public class ItemRestController {
             @RequestParam int size,
             @RequestParam String sortBy,
             @RequestParam String table,
-            @RequestParam boolean ascending){
+            @RequestParam boolean ascending)
+    {
         return ResponseEntity.ok(iItemHandler.getAllItems(page, size, sortBy, table, ascending));
     }
 }

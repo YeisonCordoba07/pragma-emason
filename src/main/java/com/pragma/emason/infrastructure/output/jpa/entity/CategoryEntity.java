@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.Set;
 
 
@@ -36,5 +37,5 @@ public class CategoryEntity {
     private String description;
 
     @ManyToMany(mappedBy = "categories")
-    private Set<ItemEntity> items;
+    private List<ItemEntity> items;
 }

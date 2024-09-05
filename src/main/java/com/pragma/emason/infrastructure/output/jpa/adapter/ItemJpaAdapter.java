@@ -26,9 +26,13 @@ public class ItemJpaAdapter implements IItemPersistence {
     @Override
     public PageResult<Item> getAllBrands(int page, int size, String sortBy, String table, boolean ascending) {
         Sort.Direction direction = ascending ? Sort.Direction.ASC : Sort.Direction.DESC;
+        // Sort is based on the "table" parameter (which determines the field to order by)
+
+
         Sort sort = Sort.by(direction, sortBy);
         Pageable pageable = PageRequest.of(page, size, sort);
 
+        // Call the repository method to get the sorted results dynamically based on table
         Page<ItemEntity> pageList = iItemRepository.findAllItems(table, pageable);
 
         return new PageResult<>(

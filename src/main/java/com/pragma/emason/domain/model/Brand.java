@@ -6,13 +6,7 @@ public class Brand {
     private String name;
     private String description;
 
-    public Integer getId() {
-        return id;
-    }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public Brand(String name, String description) {
         this.name = name;
@@ -20,6 +14,16 @@ public class Brand {
     }
     public Brand(){}
 
+
+
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
     public String getName() {
         return name;
     }

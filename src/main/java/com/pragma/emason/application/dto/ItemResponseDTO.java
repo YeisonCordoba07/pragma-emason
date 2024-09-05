@@ -4,7 +4,9 @@ import com.pragma.emason.domain.model.Brand;
 import com.pragma.emason.domain.model.Category;
 import lombok.Getter;
 import lombok.Setter;
-import java.util.Set;
+
+import java.util.List;
+
 
 @Getter
 @Setter
@@ -16,7 +18,7 @@ public class ItemResponseDTO {
     private Integer quantity;
     private Double price;
     private Brand brand;
-    private Set<Category> categories;
+    private List<Category> categories;
 
     public ItemResponseDTO() {
     }
@@ -27,7 +29,7 @@ public class ItemResponseDTO {
                            Integer quantity,
                            Double price,
                            Brand brand,
-                           Set<Category> categories) {
+                           List<Category> categories) {
         this.id = id;
         this.name = name;
         this.description = description;

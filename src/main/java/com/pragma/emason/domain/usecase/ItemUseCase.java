@@ -12,7 +12,9 @@ import com.pragma.emason.domain.exception.BrandNotFoundException;
 import com.pragma.emason.domain.exception.CategoryNotFoundException;
 import com.pragma.emason.domain.utils.FinalContants;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class ItemUseCase implements IItemService {
@@ -31,7 +33,7 @@ public class ItemUseCase implements IItemService {
 
     @Override
     public void saveItem(Item item) {
-        Set<Category> categories = new HashSet<>();
+        List<Category> categories = new ArrayList<>();
 
         for (Category categoryName : item.getCategories()) {
             Category existingCategory = iCategoryPersistence.getCategoryByName(categoryName.getName());

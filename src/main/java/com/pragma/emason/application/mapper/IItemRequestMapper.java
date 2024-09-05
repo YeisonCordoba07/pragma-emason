@@ -19,13 +19,13 @@ public interface IItemRequestMapper {
 
 
     default Item toItemSet(ItemRequestDTO itemRequestDTO) {
-        Set<Category> categories = itemRequestDTO.getCategories().stream()
+        List<Category> categories = itemRequestDTO.getCategories().stream()
                 .map(name -> {
                     Category category = new Category();
                     category.setName(name);
                     return category;
                 })
-                .collect(Collectors.toSet());
+                .collect(Collectors.toList());
 
         Brand brand = new Brand();
         brand.setName(itemRequestDTO.getBrandName());

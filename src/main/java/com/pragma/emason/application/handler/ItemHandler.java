@@ -38,12 +38,12 @@ public class ItemHandler implements IItemHandler {
     @Override
     public PageResult<ItemResponseDTO> getAllItems(int page, int size, String sortBy, String table, boolean ascending) {
         PageResult<Item> item = iItemService.getAllItems(page, size, sortBy, table, ascending);
+
         return new PageResult<>(
                 iItemResponseMapper.toResponseList(item.getContent()),
                 item.getPage(),
                 item.getSize(),
                 item.getTotalElements());
-
 
     }
 }

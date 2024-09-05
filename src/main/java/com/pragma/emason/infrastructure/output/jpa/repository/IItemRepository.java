@@ -12,17 +12,15 @@ import org.springframework.data.repository.query.Param;
 
 public interface IItemRepository extends JpaRepository<ItemEntity, Integer> {
 
-    @Query(
-            "SELECT i FROM ItemEntity i " +
-                    "JOIN i.categories c " +
-                    "JOIN i.brand b " +
-                    "ORDER BY " +
-                    "CASE " +
-                        "WHEN :table = 'category' THEN c.name " +
-                        "WHEN :table = 'brand' THEN b.name " +
-                        "ELSE i.name " +
-                    "END"
-    )
+    @Query("SELECT DISTINCT  i FROM ItemEntity i " +
+            "JOIN i.brand b " +
+            "JOIN i.categories c " +
+            "ORDER BY " +
+            "CASE " +
+                "WHEN :table = 'brand' THEN b.name " +
+                "WHEN :table = 'category' THEN c.name " +
+                "WHEN :table = 'item' THEN i.name " +
+            "END")
     Page<ItemEntity> findAllItems(@Param("table") String table, Pageable pageable);
 
 

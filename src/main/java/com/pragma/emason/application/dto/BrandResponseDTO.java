@@ -11,6 +11,7 @@ import lombok.Setter;
 @RequiredArgsConstructor
 public class BrandResponseDTO {
 
+    private Integer id;
     private String name;
     private String description;
 }
