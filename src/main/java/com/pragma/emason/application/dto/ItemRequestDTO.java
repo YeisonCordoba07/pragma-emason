@@ -4,7 +4,7 @@ import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
+import java.util.Set;
 
 
 @Getter
@@ -36,6 +36,6 @@ public class ItemRequestDTO {
     @NotNull
     @Size(min = 1, message = "At least one category is required")
     @Size(max = 3, message = "At most three categories are allowed")
-    private List<String> categories;
+    private Set<String> categories;
 
 }

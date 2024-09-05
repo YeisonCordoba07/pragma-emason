@@ -35,9 +35,11 @@ public class ItemEntity {
     private Double price;
 
 
+
    @ManyToOne(fetch = FetchType.EAGER)
    @JoinColumn(name = "brand_id", referencedColumnName = "id", nullable = false)
    private BrandEntity brand;
+
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(

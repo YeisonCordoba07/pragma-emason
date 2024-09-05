@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
-import java.util.Set;
 
 
 @Entity
@@ -25,6 +24,7 @@ public class CategoryEntity {
         this.name = name;
         this.description = description;
     }
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

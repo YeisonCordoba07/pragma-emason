@@ -9,7 +9,7 @@ import org.mapstruct.ReportingPolicy;
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
         unmappedSourcePolicy = ReportingPolicy.IGNORE)
 public interface ICategoryRequestMapper {
-    //@Mapping(target = "id", ignore = true)
+
     Category toCategory(CategoryRequestDTO categoryRequestDTO);
 
 }

@@ -13,9 +13,8 @@ import com.pragma.emason.domain.exception.CategoryNotFoundException;
 import com.pragma.emason.domain.utils.FinalContants;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+
 
 public class ItemUseCase implements IItemService {
 
@@ -31,32 +30,40 @@ public class ItemUseCase implements IItemService {
         this.iBrandPersistence = iBrandPersistence;
     }
 
+
+
     @Override
     public void saveItem(Item item) {
+
         List<Category> categories = new ArrayList<>();
 
         for (Category categoryName : item.getCategories()) {
             Category existingCategory = iCategoryPersistence.getCategoryByName(categoryName.getName());
 
             if (existingCategory == null) {
-                throw new CategoryNotFoundException(String.format(FinalContants.CATEGORY_NOT_FOUND, categoryName.getName()));
+                throw new CategoryNotFoundException(
+                        String.format(FinalContants.CATEGORY_NOT_FOUND, categoryName.getName()));
             }
-
             categories.add(existingCategory);
         }
 
         Brand existingBrand = iBrandPersistence.getBrandByName(item.getBrand().getName());
+
         if(existingBrand == null){
-            throw new BrandNotFoundException(String.format(FinalContants.BRAND_NOT_FOUND, item.getBrand().getName()));
+            throw new BrandNotFoundException(
+                    String.format(FinalContants.BRAND_NOT_FOUND, item.getBrand().getName()));
         }
+
 
         item.setBrand(existingBrand);
         item.setCategories(categories);
         iItemPersistence.saveItem(item);
     }
 
+
     @Override
     public PageResult<Item> getAllItems(int page, int size, String sortBy, String table, boolean ascending) {
+
         return iItemPersistence.getAllBrands(page, size, sortBy, table, ascending);
     }
 }
