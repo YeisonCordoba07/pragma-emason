@@ -178,7 +178,7 @@ class BrandRestControllerTest {
     void getBrandByName_ShouldReturnBrandResponseDTO() {
         // Arrange
         String brandName = "BrandTest";
-        BrandResponseDTO expectedResponse = new BrandResponseDTO(brandName, "Brand Description");
+        BrandResponseDTO expectedResponse = new BrandResponseDTO(1, brandName, "Brand Description");
 
         when(iBrandHandler.getBrandByName(brandName)).thenReturn(expectedResponse);
 
@@ -219,8 +219,8 @@ class BrandRestControllerTest {
         mockPageResult.setPage(0);
         mockPageResult.setSize(1);
         mockPageResult.setTotalElements(2);
-        mockPageResult.setContent(List.of(new BrandResponseDTO("Brand1", "Description1"),
-                new BrandResponseDTO("Brand2", "Description2")));
+        mockPageResult.setContent(List.of(new BrandResponseDTO(1, "Brand1", "Description1"),
+                new BrandResponseDTO(2, "Brand2", "Description2")));
 
         when(iBrandHandler.getAllBrands(0, 1, "name", true)).thenReturn(mockPageResult);
 

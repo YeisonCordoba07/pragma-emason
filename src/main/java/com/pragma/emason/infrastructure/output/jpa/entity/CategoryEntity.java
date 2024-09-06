@@ -8,7 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Set;
+import java.util.List;
 
 
 @Entity
@@ -25,6 +25,7 @@ public class CategoryEntity {
         this.description = description;
     }
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -36,5 +37,5 @@ public class CategoryEntity {
     private String description;
 
     @ManyToMany(mappedBy = "categories")
-    private Set<ItemEntity> items;
+    private List<ItemEntity> items;
 }

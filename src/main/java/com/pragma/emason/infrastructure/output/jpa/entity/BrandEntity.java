@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
+
 @Entity
 @Table(name="brand")
 @Getter
@@ -23,4 +26,8 @@ public class BrandEntity {
 
     @Column(nullable = false, length = 120)
     private String description;
+
+    // Relación inversa con ItemEntity
+    @OneToMany(mappedBy = "brand", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<ItemEntity> items;
 }

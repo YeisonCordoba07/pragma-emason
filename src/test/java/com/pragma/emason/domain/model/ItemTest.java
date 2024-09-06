@@ -2,8 +2,9 @@ package com.pragma.emason.domain.model;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
-import java.util.HashSet;
-import java.util.Set;
+
+import java.util.ArrayList;
+import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -12,11 +13,11 @@ class ItemTest {
 
     private Item item;
     private Brand brand;
-    private Set<Category> categories;
+    private List<Category> categories;
 
     @BeforeEach
     void setUp() {
-        categories = new HashSet<>();
+        categories = new ArrayList<>();
         categories.add(new Category("Electronics", "Electronics Description"));
         categories.add(new Category("Home Appliances", "Home Appliances Description"));
 
@@ -103,7 +104,7 @@ class ItemTest {
     @Test
     void testSetCategories() {
         // Arrange
-        Set<Category> newCategories = new HashSet<>();
+        List<Category> newCategories = new ArrayList<>();
         newCategories.add(new Category("Computers", "Computers Description"));
 
         // Act

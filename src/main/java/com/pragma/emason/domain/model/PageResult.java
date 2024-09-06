@@ -63,11 +63,4 @@ public class PageResult<T>{
         this.totalPages = totalPages;
     }
 
-    public boolean hasNext() {
-        return page < totalPages - 1;
-    }
-
-    public boolean hasPrevious() {
-        return page > 0;
-    }
 }

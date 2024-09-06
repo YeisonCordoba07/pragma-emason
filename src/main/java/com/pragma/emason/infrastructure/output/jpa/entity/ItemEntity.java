@@ -7,7 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Set;
+import java.util.List;
+
 
 @Entity
 @Table(name="item")
@@ -34,9 +35,11 @@ public class ItemEntity {
     private Double price;
 
 
-   @ManyToOne
+
+   @ManyToOne(fetch = FetchType.EAGER)
    @JoinColumn(name = "brand_id", referencedColumnName = "id", nullable = false)
    private BrandEntity brand;
+
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -44,5 +47,5 @@ public class ItemEntity {
             joinColumns = @JoinColumn(name = "item_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "category_id", referencedColumnName = "id")
     )
-    private Set<CategoryEntity> categories;
+    private List<CategoryEntity> categories;
 }

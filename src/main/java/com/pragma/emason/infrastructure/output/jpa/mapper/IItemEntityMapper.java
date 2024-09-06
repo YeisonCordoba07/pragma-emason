@@ -11,4 +11,6 @@ import org.mapstruct.ReportingPolicy;
 
 public interface IItemEntityMapper {
     ItemEntity toEntity(Item item);
+
+    Item toItem(ItemEntity itemEntity);
 }
