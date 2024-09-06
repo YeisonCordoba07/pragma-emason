@@ -24,7 +24,7 @@ public class ItemJpaAdapter implements IItemPersistence {
     }
 
     @Override
-    public PageResult<Item> getAllBrands(int page, int size, String sortBy, String table, boolean ascending) {
+    public PageResult<Item> getAllItems(int page, int size, String sortBy, String table, boolean ascending) {
         Sort.Direction direction = ascending ? Sort.Direction.ASC : Sort.Direction.DESC;
         // Sort is based on the "table" parameter (which determines the field to order by)
 

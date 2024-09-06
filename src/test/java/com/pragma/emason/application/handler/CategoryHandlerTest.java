@@ -44,8 +44,8 @@ class CategoryHandlerTest {
         when(iCategoryService.getAllCategories(0, 2, "name", true)).thenReturn(categoryPageResult);
 
         // Configure the ICategoryResponseMapper mock
-        CategoryResponseDTO categoryResponseDTO1 = new CategoryResponseDTO("Category 1", "Description 1");
-        CategoryResponseDTO categoryResponseDTO2 = new CategoryResponseDTO("Category 2", "Description 2");
+        CategoryResponseDTO categoryResponseDTO1 = new CategoryResponseDTO(1, "Category 1", "Description 1");
+        CategoryResponseDTO categoryResponseDTO2 = new CategoryResponseDTO(2, "Category 2", "Description 2");
         List<CategoryResponseDTO> categoryResponseDTOs = Arrays.asList(categoryResponseDTO1, categoryResponseDTO2);
         when(iCategoryResponseMapper.toResponseList(categories)).thenReturn(categoryResponseDTOs);
 
@@ -74,7 +74,7 @@ class CategoryHandlerTest {
         PageResult<Category> categoryPageResult = new PageResult<>(categories, page, size, categories.size());
 
         // Mock the mapper response
-        List<CategoryResponseDTO> categoryResponseDTOList = List.of(new CategoryResponseDTO("name", "description"), new CategoryResponseDTO("name", "description"));
+        List<CategoryResponseDTO> categoryResponseDTOList = List.of(new CategoryResponseDTO(1, "name", "description"), new CategoryResponseDTO(2, "name", "description"));
 
         when(iCategoryService.getAllCategories(page, size, sortBy, ascending)).thenReturn(categoryPageResult);
         when(iCategoryResponseMapper.toResponseList(categoryPageResult.getContent())).thenReturn(categoryResponseDTOList);

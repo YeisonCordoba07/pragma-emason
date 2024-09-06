@@ -6,5 +6,5 @@ import com.pragma.emason.domain.model.PageResult;
 public interface IItemPersistence {
     void saveItem(Item item);
 
-    PageResult<Item> getAllBrands(int page, int size, String sortBy, String table, boolean ascending);
+    PageResult<Item> getAllItems(int page, int size, String sortBy, String table, boolean ascending);
 }

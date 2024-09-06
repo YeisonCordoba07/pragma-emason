@@ -64,6 +64,6 @@ public class ItemUseCase implements IItemService {
     @Override
     public PageResult<Item> getAllItems(int page, int size, String sortBy, String table, boolean ascending) {
 
-        return iItemPersistence.getAllBrands(page, size, sortBy, table, ascending);
+        return iItemPersistence.getAllItems(page, size, sortBy, table, ascending);
     }
 }

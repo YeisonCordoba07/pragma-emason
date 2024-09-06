@@ -205,9 +205,9 @@ class CategoryRestControllerTest {
     void getCategoriesSuccessfully() throws Exception {
         PageResult<CategoryResponseDTO> pageResult = new PageResult<>();
         pageResult.setContent(Arrays.asList(
-                new CategoryResponseDTO("Category 1", "Description 1"),
-                new CategoryResponseDTO("Category 2", "Description 2"),
-                new CategoryResponseDTO("Category 3", "Description 3")
+                new CategoryResponseDTO(1, "Category 1", "Description 1"),
+                new CategoryResponseDTO(2, "Category 2", "Description 2"),
+                new CategoryResponseDTO(3, "Category 3", "Description 3")
         ));
         pageResult.setTotalPages(1);
         pageResult.setTotalElements(3);
