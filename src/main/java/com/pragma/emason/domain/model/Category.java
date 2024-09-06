@@ -6,17 +6,12 @@ public class Category {
     private String name;
     private String description;
 
+
+
     public Category() {
 
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public Category(String name, String description) {
         this.name = name;
@@ -24,9 +19,15 @@ public class Category {
     }
 
 
+
     //Getter and Setter
+    public Integer getId() {
+        return id;
+    }
 
-
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;

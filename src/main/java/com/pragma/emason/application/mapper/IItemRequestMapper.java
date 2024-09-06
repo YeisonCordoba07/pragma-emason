@@ -7,8 +7,8 @@ import com.pragma.emason.domain.model.Item;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.List;
+
 
 @Mapper(componentModel = "spring",
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
@@ -17,13 +17,14 @@ public interface IItemRequestMapper {
 
 
     default Item toItemSet(ItemRequestDTO itemRequestDTO) {
-        Set<Category> categories = itemRequestDTO.getCategories().stream()
+
+        List<Category> categories = itemRequestDTO.getCategories().stream()
                 .map(name -> {
                     Category category = new Category();
                     category.setName(name);
                     return category;
                 })
-                .collect(Collectors.toSet());
+                .toList();
 
         Brand brand = new Brand();
         brand.setName(itemRequestDTO.getBrandName());
@@ -37,4 +38,5 @@ public interface IItemRequestMapper {
                 categories
         );
     }
+    
 }

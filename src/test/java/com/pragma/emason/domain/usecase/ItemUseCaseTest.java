@@ -1,5 +1,6 @@
 package com.pragma.emason.domain.usecase;
 
+import com.pragma.emason.domain.model.PageResult;
 import org.junit.jupiter.api.Test;
 
 import com.pragma.emason.domain.exception.BrandNotFoundException;
@@ -14,9 +15,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import java.util.HashSet;
-import java.util.Set;
 
+import java.util.ArrayList;
+import java.util.List;
+
+
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
@@ -41,7 +45,7 @@ class ItemUseCaseTest {
     void setUp() {
         MockitoAnnotations.openMocks(this);
 
-        Set<Category> categories = new HashSet<>();
+        List<Category> categories = new ArrayList<>();
         categories.add(new Category("Electronics", "Electronics Description"));
         categories.add(new Category("Home Appliances", "Home Appliances Description"));
 
@@ -104,5 +108,30 @@ class ItemUseCaseTest {
         // Act & Assert
         assertThrows(BrandNotFoundException.class, () -> itemUseCase.saveItem(item));
         verify(iItemPersistence, never()).saveItem(any(Item.class));
+    }
+
+    @Test
+    void getAllItems() {
+        int page = 0;
+        int size = 2;
+        String sortBy = "name";
+        String table = "category";
+        boolean ascending = true;
+
+        Category category1 = new Category("Electronics", "Electronics Description");
+        Category category2 = new Category("Home Appliances", "Home Appliances Description");
+        List<Category> categories = List.of(category1, category2);
+        Item item1 = new Item("Smartphone", "Smartphone Description", 10, 699.99, new Brand("BrandA", "BrandA Description"), categories);
+        Item item2 = new Item("Smartwatch", "Smartwatch Description", 10, 399.99, new Brand("BrandB", "BrandB Description"), categories);
+        List<Item> itemList = List.of(item1, item2);
+        PageResult<Item> expectedPageResult = new PageResult<>(itemList,page,size,2);
+        when(iItemPersistence.getAllItems(page, size, sortBy, table, ascending)).thenReturn(expectedPageResult);
+
+
+        PageResult<Item> actualPageResult = itemUseCase.getAllItems(page, size, sortBy, table, ascending);
+
+        assertThat(actualPageResult).isEqualTo(expectedPageResult);
+
+        verify(iItemPersistence, times(1)).getAllItems(page, size, sortBy, table, ascending);
     }
 }

@@ -12,6 +12,7 @@ import lombok.Setter;
 @Setter
 public class CategoryRequestDTO {
 
+
     @NotNull
     @NotBlank(message = "Name cannot be null blank")
     @Size(max = 50, message = "Name must be less than or equal to 50 characters")

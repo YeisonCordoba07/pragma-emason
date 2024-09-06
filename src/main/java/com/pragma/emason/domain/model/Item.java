@@ -1,7 +1,7 @@
 package com.pragma.emason.domain.model;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
+
 
 public class Item {
 
@@ -11,7 +11,8 @@ public class Item {
     private Integer quantity;
     private Double price;
     private Brand brand;
-    private Set<Category> categories;
+    private List<Category> categories;
+
 
 
     public Item() {
@@ -22,14 +23,15 @@ public class Item {
                 Integer quantity,
                 Double price,
                 Brand brand,
-                Set<Category> categories) {
+                List<Category> categories) {
         this.name = name;
         this.description = description;
         this.quantity = quantity;
         this.price = price;
         this.brand = brand;
-        setCategories(categories);
+        this.categories = categories;
     }
+
 
 
     public Integer getId() {
@@ -80,11 +82,11 @@ public class Item {
         this.brand = brand;
     }
 
-    public Set<Category> getCategories() {
+    public List<Category> getCategories() {
         return categories;
     }
 
-    public void setCategories(Set<Category> categories) {
-        this.categories = new HashSet<>(categories);
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
     }
 }

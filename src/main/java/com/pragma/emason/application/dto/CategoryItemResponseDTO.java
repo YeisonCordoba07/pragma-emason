@@ -9,9 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class BrandResponseDTO {
-
+public class CategoryItemResponseDTO {
     private Integer id;
     private String name;
-    private String description;
 }

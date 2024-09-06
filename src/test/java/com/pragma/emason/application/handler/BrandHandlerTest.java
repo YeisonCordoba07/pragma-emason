@@ -62,7 +62,7 @@ class BrandHandlerTest {
         Brand brand = new Brand();
         brand.setName(brandName);
         brand.setDescription("Brand's description");
-        BrandResponseDTO brandResponseDTO = new BrandResponseDTO("Brand's name", "Brand's description");
+        BrandResponseDTO brandResponseDTO = new BrandResponseDTO(1, "Brand's name", "Brand's description");
 
         when(iBrandService.getBrandByName(brandName)).thenReturn(brand);
         when(iBrandResponseMapper.toResponse(brand)).thenReturn(brandResponseDTO);
