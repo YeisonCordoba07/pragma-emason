@@ -18,7 +18,7 @@ public class ItemResponseDTO {
     private Integer quantity;
     private Double price;
     private Brand brand;
-    private List<Category> categories;
+    private List<CategoryItemResponseDTO> categories;
 
     public ItemResponseDTO() {
     }
@@ -29,7 +29,7 @@ public class ItemResponseDTO {
                            Integer quantity,
                            Double price,
                            Brand brand,
-                           List<Category> categories) {
+                           List<CategoryItemResponseDTO> categories) {
         this.id = id;
         this.name = name;
         this.description = description;
