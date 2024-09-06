@@ -1,7 +1,6 @@
 package com.pragma.emason.application.dto;
 
 import com.pragma.emason.domain.model.Brand;
-import com.pragma.emason.domain.model.Category;
 import lombok.Getter;
 import lombok.Setter;
 
