@@ -31,7 +31,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
 
-                                .requestMatchers(ApiDocumentationConstants.CATEGORY_PATH).hasRole(ApiDocumentationConstants.AUTHORITY_ADMIN)
+                                .requestMatchers(ApiDocumentationConstants.CATEGORY_PATH).hasAuthority(ApiDocumentationConstants.AUTHORITY_ADMIN)
                                 .requestMatchers(ApiDocumentationConstants.BRAND_PATH).hasAuthority(ApiDocumentationConstants.AUTHORITY_CLIENTE)
                                 .requestMatchers(ApiDocumentationConstants.ITEM_PATH).permitAll()
                                 .anyRequest().authenticated()
