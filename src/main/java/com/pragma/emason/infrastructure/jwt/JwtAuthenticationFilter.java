@@ -5,6 +5,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
@@ -22,9 +23,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+    protected void doFilterInternal(HttpServletRequest request,
+                                    HttpServletResponse response,
+                                    FilterChain filterChain)
             throws ServletException, IOException {
-        String authorizationHeader = request.getHeader("Authorization");
+
+
+        System.out.println("############################################################################### Request: "+request);
+        String authorizationHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
 
         String token = null;
         String username = null;
@@ -33,8 +39,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             token = authorizationHeader.substring(7);
-            username = jwtHandler.extractUsername(token);
+            username = jwtHandler.getEmailFromToken(token);
         }
+        System.out.println("#######################################################################################################Token: " + token);
+        System.out.println("#######################################################################################################Username: " + username);
 
 
 

@@ -31,14 +31,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
 
-                                .requestMatchers(ApiDocumentationConstants.AUTH_PATH).permitAll()
-                                .requestMatchers(ApiDocumentationConstants.ROLE_PATH).hasAuthority(ApiDocumentationConstants.AUTHORITY_ADMIN)
-                                .requestMatchers(ApiDocumentationConstants.CATEGORY_PATH).hasAuthority(ApiDocumentationConstants.AUTHORITY_ADMIN)
-                                .requestMatchers(ApiDocumentationConstants.BRAND_PATH).hasAuthority(ApiDocumentationConstants.AUTHORITY_ADMIN)
-                                .requestMatchers(ApiDocumentationConstants.ITEM_PATH).hasAuthority(ApiDocumentationConstants.AUTHORITY_ADMIN)
-                                .requestMatchers(ApiDocumentationConstants.SUPPLY_PATH).hasAuthority(ApiDocumentationConstants.AUTHORITY_AUX_BODEGA)
-                                .requestMatchers(ApiDocumentationConstants.CART_PATH).hasAuthority(ApiDocumentationConstants.AUTHORITY_CLIENTE)
-                                .requestMatchers(ApiDocumentationConstants.USER_PATH).hasAuthority(ApiDocumentationConstants.AUTHORITY_ADMIN)
+                                .requestMatchers(ApiDocumentationConstants.CATEGORY_PATH).hasRole(ApiDocumentationConstants.AUTHORITY_ADMIN)
+                                .requestMatchers(ApiDocumentationConstants.BRAND_PATH).hasAuthority(ApiDocumentationConstants.AUTHORITY_CLIENTE)
+                                .requestMatchers(ApiDocumentationConstants.ITEM_PATH).permitAll()
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(sessionManagement ->
