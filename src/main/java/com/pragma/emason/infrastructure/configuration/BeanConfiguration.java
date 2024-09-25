@@ -1,5 +1,6 @@
 package com.pragma.emason.infrastructure.configuration;
 
+import com.pragma.emason.application.handler.IBrandHandler;
 import com.pragma.emason.domain.api.IBrandService;
 import com.pragma.emason.domain.api.IItemService;
 import com.pragma.emason.domain.spi.IBrandPersistence;
@@ -20,11 +21,14 @@ import com.pragma.emason.infrastructure.output.jpa.repository.IItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
+
 
 @Configuration
 @RequiredArgsConstructor
 public class BeanConfiguration {
     private final com.pragma.emason.infrastructure.output.jpa.repository.ICategoryRepository iCategoryRepository;
+
     private final ICategoryEntityMapper iCategoryEntityMapper;
 
     private final IBrandRepository iBrandRepository;
@@ -70,6 +74,9 @@ public class BeanConfiguration {
         // Modifica aquí para pasar también la implementación de ICategoryPersistence
         return new ItemUseCase(iItemPersistence(), categoryRepository(), iBrandPersistence());
     }
+
+
+
 
 
 

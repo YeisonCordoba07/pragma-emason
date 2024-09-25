@@ -7,12 +7,15 @@ import com.pragma.emason.application.mapper.IBrandResponseMapper;
 import com.pragma.emason.domain.api.IBrandService;
 import com.pragma.emason.domain.model.Brand;
 import com.pragma.emason.domain.model.PageResult;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-
+@Component
+@RequiredArgsConstructor
 public class BrandHandler implements IBrandHandler{
     private final IBrandService iBrandService;
     private final IBrandRequestMapper iBrandRequestMapper;
@@ -20,14 +23,6 @@ public class BrandHandler implements IBrandHandler{
 
 
 
-    public BrandHandler(
-            IBrandService iBrandService,
-            IBrandRequestMapper iBrandRequestMapper,
-            IBrandResponseMapper iBrandResponseMapper) {
-        this.iBrandService = iBrandService;
-        this.iBrandRequestMapper = iBrandRequestMapper;
-        this.iBrandResponseMapper = iBrandResponseMapper;
-    }
 
 
     @Override
