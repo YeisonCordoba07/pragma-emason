@@ -6,11 +6,9 @@ import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import lombok.Getter;
+
 import org.springframework.security.core.GrantedAuthority;
-
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-
-
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +18,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+
 
 @Component
 @Service
@@ -41,35 +40,34 @@ public class JwtHandler {
 
 
 
-
     public String getEmailFromToken(String token) {
         return getClaim(token, Claims::getSubject);
     }
 
 
-    // Validar el token usando la misma llave HMAC
+
+    // Validate the token using the same HMAC key
     public Boolean validateToken(String token) {
         try {
-            // Parseamos y validamos el token con la clave secreta
+            // Parse and validate the token with the secret key
             Claims claims = Jwts.parserBuilder()
                     .setSigningKey(key)
                     .build()
                     .parseClaimsJws(token)
                     .getBody();
 
-            // Verificamos que el token no esté expirado
+            // Check that the token is not expired
             return !claims.getExpiration().before(new Date());
 
         } catch (JwtException | IllegalArgumentException e) {
-            // Si ocurre alguna excepción, el token es inválido
-            System.out.println("Token inválido: " + e.getMessage());
+            // If an exception occurs, the token is invalid
             return false;
         }
     }
 
 
 
-    // Obtener un reclamo específico del token
+    // Get a specific claim from the token
     public <T> T getClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = getAllClaims(token);
         return claimsResolver.apply(claims);
@@ -77,11 +75,11 @@ public class JwtHandler {
 
 
 
-    // Obtener todos los claims (reclamos) del token
+    // Get all claims from the token
     private Claims getAllClaims(String token) {
         return Jwts
                 .parserBuilder()
-                .setSigningKey(key)  // Usa la misma llave para obtener los claims
+                .setSigningKey(key)  // Use the same key to retrieve claims
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
@@ -89,10 +87,10 @@ public class JwtHandler {
 
 
 
-    // Obtener roles del token
+    // Get roles from the token
     public List<GrantedAuthority> getRoles(String token) {
         Claims claims = getAllClaims(token);
-        String roles = claims.get("roles", String.class);  // Verifica cómo estructuraste los roles en el JWT
+        String roles = claims.get("roles", String.class);  // Check how you structured the roles in the JWT
         return Arrays.stream(roles.split(","))
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());

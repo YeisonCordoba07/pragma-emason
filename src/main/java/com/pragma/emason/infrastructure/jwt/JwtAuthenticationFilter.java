@@ -29,22 +29,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
 
 
-        System.out.println("############################################################################### Request: "+request);
         String authorizationHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
 
         String token = null;
         String username = null;
 
-
-
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             token = authorizationHeader.substring(7);
             username = jwtHandler.getEmailFromToken(token);
         }
-        System.out.println("#######################################################################################################Token: " + token);
-        System.out.println("#######################################################################################################Username: " + username);
-
-
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             if (jwtHandler.validateToken(token)) {
