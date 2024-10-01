@@ -18,6 +18,26 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 
+import static com.pragma.emason.infrastructure.util.ApiDocumentationConstants.STATUS_200;
+import static com.pragma.emason.infrastructure.util.ApiDocumentationConstants.STATUS_201;
+import static com.pragma.emason.infrastructure.util.ApiDocumentationConstants.STATUS_400;
+import static com.pragma.emason.infrastructure.util.ApiDocumentationConstants.STATUS_404;
+import static com.pragma.emason.infrastructure.util.ApiDocumentationConstants.STATUS_500;
+import static com.pragma.emason.infrastructure.util.ApiDocumentationConstants.OPERATION_SUMMARY_CREATE_BRAND;
+import static com.pragma.emason.infrastructure.util.ApiDocumentationConstants.OPERATION_DESCRIPTION_CREATE_BRAND;
+import static com.pragma.emason.infrastructure.util.ApiDocumentationConstants.RESPONSE_201_DESCRIPTION_CREATE_BRAND;
+import static com.pragma.emason.infrastructure.util.ApiDocumentationConstants.RESPONSE_400_DESCRIPTION;
+import static com.pragma.emason.infrastructure.util.ApiDocumentationConstants.OPERATION_SUMMARY_GET_BRAND_BY_NAME;
+import static com.pragma.emason.infrastructure.util.ApiDocumentationConstants.OPERATION_DESCRIPTION_GET_BRAND_BY_NAME;
+import static com.pragma.emason.infrastructure.util.ApiDocumentationConstants.RESPONSE_200_DESCRIPTION_GET_BRAND_BY_NAME;
+import static com.pragma.emason.infrastructure.util.ApiDocumentationConstants.RESPONSE_404_DESCRIPTION_BRRAND;
+import static com.pragma.emason.infrastructure.util.ApiDocumentationConstants.OPERATION_SUMMARY_GET_ALL_BRANDS;
+import static com.pragma.emason.infrastructure.util.ApiDocumentationConstants.OPERATION_DESCRIPTION_GET_ALL_BRANDS;
+import static com.pragma.emason.infrastructure.util.ApiDocumentationConstants.RESPONSE_200_DESCRIPTION_GET_ALL_BRANDS;
+import static com.pragma.emason.infrastructure.util.ApiDocumentationConstants.RESPONSE_500_DESCRIPTION;
+
+
+
 
 @RestController
 @RequestMapping("/brand")
@@ -27,11 +47,10 @@ public class BrandRestController {
     private final IBrandHandler iBrandHandler;
 
 
-    @Operation(summary = "Create a new brand",
-            description = "Saves a new brand in the database.")
+    @Operation(summary = OPERATION_SUMMARY_CREATE_BRAND, description = OPERATION_DESCRIPTION_CREATE_BRAND)
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Brand created successfully", content = @Content),
-            @ApiResponse(responseCode = "400", description = "Invalid input", content = @Content(schema = @Schema(implementation = String.class))),
+            @ApiResponse(responseCode = STATUS_201, description = RESPONSE_201_DESCRIPTION_CREATE_BRAND, content = @Content),
+            @ApiResponse(responseCode = STATUS_400, description = RESPONSE_400_DESCRIPTION, content = @Content(schema = @Schema(implementation = String.class))),
     })
     @PostMapping
     public ResponseEntity<Void> saveBrand(@Valid @RequestBody BrandRequestDTO brandRequestDTO){
@@ -41,15 +60,10 @@ public class BrandRestController {
 
 
 
-    @Operation(summary = "Get brand by name",
-            description = "Fetches a brand's details by its name.")
+    @Operation(summary = OPERATION_SUMMARY_GET_BRAND_BY_NAME, description = OPERATION_DESCRIPTION_GET_BRAND_BY_NAME)
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200",
-                    description = "Brand found",
-                    content = @Content(schema = @Schema(implementation = BrandResponseDTO.class))),
-            @ApiResponse(responseCode = "404",
-                    description = "Brand not found",
-                    content = @Content(schema = @Schema(implementation = String.class)))
+            @ApiResponse(responseCode = STATUS_200, description = RESPONSE_200_DESCRIPTION_GET_BRAND_BY_NAME, content = @Content(schema = @Schema(implementation = BrandResponseDTO.class))),
+            @ApiResponse(responseCode = STATUS_404, description = RESPONSE_404_DESCRIPTION_BRRAND, content = @Content(schema = @Schema(implementation = String.class)))
     })
     @GetMapping("/{name}")
     public ResponseEntity<BrandResponseDTO> getBrandByName(
@@ -63,12 +77,11 @@ public class BrandRestController {
 
 
 
-    @Operation(summary = "Retrieve all brands",
-            description = "Returns a paginated list of brands, sorted by a specific field.")
+    @Operation(summary = OPERATION_SUMMARY_GET_ALL_BRANDS, description = OPERATION_DESCRIPTION_GET_ALL_BRANDS)
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Successful operation, list of brands returned"),
-            @ApiResponse(responseCode = "400", description = "Bad request, invalid parameters"),
-            @ApiResponse(responseCode = "500", description = "Internal server error")
+            @ApiResponse(responseCode = STATUS_200, description = RESPONSE_200_DESCRIPTION_GET_ALL_BRANDS),
+            @ApiResponse(responseCode = STATUS_400, description = RESPONSE_400_DESCRIPTION),
+            @ApiResponse(responseCode = STATUS_500, description = RESPONSE_500_DESCRIPTION)
     })
     @GetMapping("/getAll")
     public ResponseEntity<PageResult<BrandResponseDTO>> getAllBrands(

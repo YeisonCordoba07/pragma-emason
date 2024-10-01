@@ -3,10 +3,8 @@ package com.pragma.emason.infrastructure.input.rest;
 import com.pragma.emason.application.dto.ItemRequestDTO;
 import com.pragma.emason.application.dto.ItemResponseDTO;
 import com.pragma.emason.application.handler.IItemHandler;
-import com.pragma.emason.application.handler.feign.SupplyFeignClient;
 import com.pragma.emason.domain.model.PageResult;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -19,33 +17,49 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.*;
 
+
+import static com.pragma.emason.infrastructure.util.ApiDocumentationConstants.STATUS_200;
+import static com.pragma.emason.infrastructure.util.ApiDocumentationConstants.STATUS_201;
+import static com.pragma.emason.infrastructure.util.ApiDocumentationConstants.STATUS_400;
+import static com.pragma.emason.infrastructure.util.ApiDocumentationConstants.STATUS_500;
+import static com.pragma.emason.infrastructure.util.ApiDocumentationConstants.OPERATION_SUMMARY_CREATE;
+import static com.pragma.emason.infrastructure.util.ApiDocumentationConstants.OPERATION_DESCRIPTION_CREATE;
+import static com.pragma.emason.infrastructure.util.ApiDocumentationConstants.OPERATION_SUMMARY_GET_ALL_ITEMS;
+import static com.pragma.emason.infrastructure.util.ApiDocumentationConstants.OPERATION_DESCRIPTION_GET_ALL_ITEMS;
+import static com.pragma.emason.infrastructure.util.ApiDocumentationConstants.OPERATION_SUMMARY_INCREASE_ITEM_QUANTITY;
+import static com.pragma.emason.infrastructure.util.ApiDocumentationConstants.OPERATION_DESCRIPTION_INCREASE_ITEM_QUANTITY;
+import static com.pragma.emason.infrastructure.util.ApiDocumentationConstants.RESPONSE_200_DESCRIPTION_GET_ALL_ITEMS;
+import static com.pragma.emason.infrastructure.util.ApiDocumentationConstants.RESPONSE_201_DESCRIPTION;
+import static com.pragma.emason.infrastructure.util.ApiDocumentationConstants.RESPONSE_201_DESCRIPTION_INCREASE_ITEM;
+import static com.pragma.emason.infrastructure.util.ApiDocumentationConstants.RESPONSE_400_DESCRIPTION;
+import static com.pragma.emason.infrastructure.util.ApiDocumentationConstants.RESPONSE_400_DESCRIPTION_INCREASE_ITEM;
+import static com.pragma.emason.infrastructure.util.ApiDocumentationConstants.RESPONSE_500_DESCRIPTION;
+
+
+
 @RestController
 @RequestMapping("/item")
 @RequiredArgsConstructor
 @Validated
-@CrossOrigin(origins = {"http://localhost:8081", "http://localhost:8082"})
+@CrossOrigin(origins = {"*"})
 public class ItemRestController {
+
     private final IItemHandler iItemHandler;
-    //private final SupplyFeignClient supplyFeignClient;
 
 
-    @Operation(summary = "Save a new item", description = "This endpoint allows saving a new item in the database.")
+
+    @Operation(summary = OPERATION_SUMMARY_CREATE, description = OPERATION_DESCRIPTION_CREATE)
     @ApiResponses(value = {
             @ApiResponse(
-                    responseCode = "201",
-                    description = "Item created successfully"),
+                    responseCode = STATUS_201,
+                    description = RESPONSE_201_DESCRIPTION),
             @ApiResponse(
-                    responseCode = "400",
-                    description = "Invalid input",
-                    content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
-            @ApiResponse(
-                    responseCode = "409",
-                    description = "Conflict: Item already exists",
+                    responseCode = STATUS_400,
+                    description = RESPONSE_400_DESCRIPTION,
                     content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     })
     @PostMapping
-    public ResponseEntity<Void> saveItem(@Valid @RequestBody ItemRequestDTO itemRequestDTO){
-
+    public ResponseEntity<Void> saveItem(@Valid @RequestBody ItemRequestDTO itemRequestDTO) {
         iItemHandler.saveItemInDataBase(itemRequestDTO);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
@@ -53,49 +67,40 @@ public class ItemRestController {
 
 
 
-
-
-    @GetMapping("/getAll")
-    @Operation(summary = "Retrieve all items with pagination, sorting, and filtering",
-            description = "Fetches a paginated list of items from the database. The results can be sorted by a specific field, filtered by table, and ordered in ascending or descending order.")
+    @Operation(summary = OPERATION_SUMMARY_GET_ALL_ITEMS, description = OPERATION_DESCRIPTION_GET_ALL_ITEMS)
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Successfully retrieved the list of items",
-                    content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = PageResult.class))),
-            @ApiResponse(responseCode = "400", description = "Invalid input parameters",
+            @ApiResponse(responseCode = STATUS_200, description = RESPONSE_200_DESCRIPTION_GET_ALL_ITEMS,
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = PageResult.class))),
+            @ApiResponse(responseCode = STATUS_400, description = RESPONSE_400_DESCRIPTION,
                     content = @Content),
-            @ApiResponse(responseCode = "500", description = "Internal server error",
+            @ApiResponse(responseCode = STATUS_500, description = RESPONSE_500_DESCRIPTION,
                     content = @Content)
     })
+    @GetMapping("/getAll")
     public ResponseEntity<PageResult<ItemResponseDTO>> getAllItems(
-            @Parameter(description = "Page number for pagination (zero-based index)", example = "0")
             @RequestParam int page,
-
-            @Parameter(description = "Number of items per page", example = "10")
             @RequestParam int size,
-
-            @Parameter(description = "Field to sort the items by", example = "name")
             @RequestParam String sortBy,
-
-            @Parameter(description = "Table to apply the sort on", schema = @Schema(type = "string", allowableValues = {"item", "category", "brand"}))
             @RequestParam String table,
-
-            @Parameter(description = "True for ascending order, false for descending order", example = "true")
-            @RequestParam boolean ascending)
-    {
+            @RequestParam boolean ascending) {
         return ResponseEntity.ok(iItemHandler.getAllItems(page, size, sortBy, table, ascending));
     }
 
 
+
+    @Operation(summary = OPERATION_SUMMARY_INCREASE_ITEM_QUANTITY, description = OPERATION_DESCRIPTION_INCREASE_ITEM_QUANTITY)
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = STATUS_201, description = RESPONSE_201_DESCRIPTION_INCREASE_ITEM,
+                    content = @Content(schema = @Schema())),
+            @ApiResponse(responseCode = STATUS_400, description = RESPONSE_400_DESCRIPTION_INCREASE_ITEM,
+                    content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+            @ApiResponse(responseCode = STATUS_500, description = RESPONSE_500_DESCRIPTION,
+                    content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+    })
     @PutMapping("/{id}/{increase}")
-    public ResponseEntity<Void> increaseItem(
-            @PathVariable Integer id,
-            @PathVariable Integer increase) {
-
-        // Llamar al servicio para actualizar la categoría de manera parcial
+    public ResponseEntity<Void> increaseItem(@PathVariable Integer id, @PathVariable Integer increase) {
         iItemHandler.increaseItem(id, increase);
-
-        // Devolver la categoría actualizada
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
+
 }

@@ -23,6 +23,7 @@ public class ItemUseCase implements IItemService {
     private final ICategoryPersistence iCategoryPersistence;
     private final IBrandPersistence iBrandPersistence;
 
+
     public ItemUseCase(IItemPersistence iItemPersistence,
                        ICategoryPersistence iCategoryPersistence,
                        IBrandPersistence iBrandPersistence) {
@@ -62,16 +63,14 @@ public class ItemUseCase implements IItemService {
     }
 
 
+
     @Override
     public PageResult<Item> getAllItems(int page, int size, String sortBy, String table, boolean ascending) {
 
         return iItemPersistence.getAllItems(page, size, sortBy, table, ascending);
     }
 
-    @Override
-    public Item getItemById(Integer id) {
-        return iItemPersistence.getItemById(id);
-    }
+
 
     @Override
     public void increaseItem(Integer id, Integer increase) {
@@ -79,6 +78,13 @@ public class ItemUseCase implements IItemService {
         Item item = getItemById(id);
         item.setQuantity(item.getQuantity() + increase);
         iItemPersistence.saveItem(item);
-
     }
+
+
+
+    @Override
+    public Item getItemById(Integer id) {
+        return iItemPersistence.getItemById(id);
+    }
+
 }

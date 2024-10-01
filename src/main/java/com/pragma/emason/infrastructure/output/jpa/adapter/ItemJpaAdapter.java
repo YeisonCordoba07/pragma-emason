@@ -14,16 +14,21 @@ import org.springframework.data.domain.Sort;
 
 import java.util.Optional;
 
+
 @RequiredArgsConstructor
 public class ItemJpaAdapter implements IItemPersistence {
     private final IItemRepository iItemRepository;
     private final IItemEntityMapper iItemEntityMapper;
+
+
 
     @Override
     public void saveItem(Item item) {
         ItemEntity itemEntity = iItemEntityMapper.toEntity(item);
         iItemRepository.save(itemEntity);
     }
+
+
 
     @Override
     public PageResult<Item> getAllItems(int page, int size, String sortBy, String table, boolean ascending) {
@@ -46,6 +51,8 @@ public class ItemJpaAdapter implements IItemPersistence {
                 pageList.getTotalElements()
         );
     }
+
+
 
     @Override
     public Item getItemById(Integer id) {

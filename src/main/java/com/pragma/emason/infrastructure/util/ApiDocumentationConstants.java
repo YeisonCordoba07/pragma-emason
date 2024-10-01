@@ -22,50 +22,64 @@ public class ApiDocumentationConstants {
     public static final String RESPONSE_201_DESCRIPTION = "User account created successfully";
     public static final String RESPONSE_400_DESCRIPTION = "Invalid input";
     public static final String RESPONSE_500_DESCRIPTION = "Server error";
-
-    public static final String OPERATION_SUMMARY_GET_BY_ID = "Get role by ID";
-    public static final String OPERATION_DESCRIPTION_GET_BY_ID =
-            "This endpoint retrieves a role based on its ID. If the role is found, it returns the role details.";
-    public static final String RESPONSE_200_DESCRIPTION = "Role found successfully";
-    public static final String RESPONSE_404_DESCRIPTION = "Role not found";
-    public static final String PATH_PARAM_DESCRIPTION = "ID of the role to be retrieved";
-
-
-
-    // AUTHENTICATION CONTROLLER
-    // Resumen de las operaciones
-    public static final String LOGIN_SUMMARY = "Login a user";
-    public static final String REGISTER_SUMMARY = "Register a user";
-
-    // Descripciones de las operaciones
-    public static final String LOGIN_DESCRIPTION = "Authenticates a user with username and password";
-    public static final String REGISTER_DESCRIPTION = "Registers a new user in the system";
-
-    // Respuestas de éxito
-    public static final String SUCCESSFULLY_AUTHENTICATED = "Successfully authenticated";
-    public static final String SUCCESSFULLY_REGISTERED = "Successfully registered";
-
-    // Respuestas de error
-    public static final String INVALID_CREDENTIALS = "Invalid credentials";
-    public static final String INVALID_INPUT_DATA = "Invalid input data";
-    public static final String SERVER_ERROR = "Server error";
-
+    
 
 
     //SECURITY CONFIG
     // Authorities
     public static final String AUTHORITY_ADMIN = "ADMIN";
     public static final String AUTHORITY_AUX_BODEGA = "AUX_BODEGA";
-    public static final String AUTHORITY_CLIENTE = "CLIENTE";
+
 
     // URL paths
-    public static final String AUTH_PATH = "/auth/**";
-    public static final String ROLE_PATH = "/role/**";
+
     public static final String CATEGORY_PATH = "/category/**";
     public static final String BRAND_PATH = "/brand/**";
     public static final String ITEM_PATH = "/item/**";
-    public static final String SUPPLY_PATH = "/supply/**";
-    public static final String CART_PATH = "/cart/**";
-    public static final String USER_PATH = "/user/**";
+
+
+    // ITEM REST CONTROLLER
+    public static final String OPERATION_SUMMARY_GET_ALL_ITEMS = "Retrieve all items with pagination, sorting, and filtering";
+    public static final String OPERATION_DESCRIPTION_GET_ALL_ITEMS = "Fetches a paginated list of items from the database. The results can be sorted by a specific field, filtered by table, and ordered in ascending or descending order.";
+    public static final String RESPONSE_200_DESCRIPTION_GET_ALL_ITEMS = "Successfully retrieved the list of items";
+
+    public static final String OPERATION_SUMMARY_INCREASE_ITEM_QUANTITY = "Increase Item Quantity";
+    public static final String OPERATION_DESCRIPTION_INCREASE_ITEM_QUANTITY = "Increases the quantity of an item by the specified amount";
+    public static final String RESPONSE_201_DESCRIPTION_INCREASE_ITEM = "Item quantity increased successfully";
+    public static final String RESPONSE_400_DESCRIPTION_INCREASE_ITEM = "Invalid input or item not found";
+
+
+
+    // CATEGORY REST CONTROLLER
+    public static final String OPERATION_SUMMARY_SAVE_CATEGORY = "Save a new category";
+    public static final String OPERATION_DESCRIPTION_SAVE_CATEGORY = "Creates a new category and saves it to the database.";
+    public static final String RESPONSE_201_DESCRIPTION_SAVE_CATEGORY = "Category successfully created";
+
+    public static final String OPERATION_SUMMARY_GET_CATEGORY_BY_NAME = "Get a category by name";
+    public static final String OPERATION_DESCRIPTION_GET_CATEGORY_BY_NAME = "Fetches the details of a specific category by its name.";
+    public static final String RESPONSE_200_DESCRIPTION_GET_CATEGORY_BY_NAME = "Category found";
+
+    public static final String OPERATION_SUMMARY_GET_ALL_CATEGORIES = "Get all categories with pagination and sorting";
+    public static final String OPERATION_DESCRIPTION_GET_ALL_CATEGORIES = "Fetches all categories with optional pagination and sorting parameters.";
+    public static final String RESPONSE_200_DESCRIPTION_GET_ALL_CATEGORIES = "Categories retrieved successfully";
+
+    public static final String RESPONSE_404_DESCRIPTION_CATEGORY = "Category not found";
+
+
+    // BRAND REST CONTROLLER
+    public static final String OPERATION_SUMMARY_CREATE_BRAND = "Create a new brand";
+    public static final String OPERATION_DESCRIPTION_CREATE_BRAND = "Saves a new brand in the database.";
+    public static final String RESPONSE_201_DESCRIPTION_CREATE_BRAND = "Brand created successfully";
+
+
+    public static final String OPERATION_SUMMARY_GET_BRAND_BY_NAME = "Get brand by name";
+    public static final String OPERATION_DESCRIPTION_GET_BRAND_BY_NAME = "Fetches a brand's details by its name.";
+    public static final String RESPONSE_200_DESCRIPTION_GET_BRAND_BY_NAME = "Brand found";
+    public static final String RESPONSE_404_DESCRIPTION_BRRAND = "Brand not found";
+
+    public static final String OPERATION_SUMMARY_GET_ALL_BRANDS = "Retrieve all brands";
+    public static final String OPERATION_DESCRIPTION_GET_ALL_BRANDS = "Returns a paginated list of brands, sorted by a specific field.";
+    public static final String RESPONSE_200_DESCRIPTION_GET_ALL_BRANDS = "Successful operation, list of brands returned";
+
 
 }

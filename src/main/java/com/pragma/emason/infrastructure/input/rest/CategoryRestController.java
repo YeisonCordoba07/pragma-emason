@@ -16,6 +16,25 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import static com.pragma.emason.infrastructure.util.ApiDocumentationConstants.STATUS_200;
+import static com.pragma.emason.infrastructure.util.ApiDocumentationConstants.STATUS_201;
+import static com.pragma.emason.infrastructure.util.ApiDocumentationConstants.STATUS_400;
+import static com.pragma.emason.infrastructure.util.ApiDocumentationConstants.STATUS_404;
+import static com.pragma.emason.infrastructure.util.ApiDocumentationConstants.STATUS_500;
+import static com.pragma.emason.infrastructure.util.ApiDocumentationConstants.OPERATION_SUMMARY_SAVE_CATEGORY;
+import static com.pragma.emason.infrastructure.util.ApiDocumentationConstants.OPERATION_DESCRIPTION_SAVE_CATEGORY;
+import static com.pragma.emason.infrastructure.util.ApiDocumentationConstants.RESPONSE_201_DESCRIPTION_SAVE_CATEGORY;
+import static com.pragma.emason.infrastructure.util.ApiDocumentationConstants.OPERATION_SUMMARY_GET_CATEGORY_BY_NAME;
+import static com.pragma.emason.infrastructure.util.ApiDocumentationConstants.OPERATION_DESCRIPTION_GET_CATEGORY_BY_NAME;
+import static com.pragma.emason.infrastructure.util.ApiDocumentationConstants.RESPONSE_200_DESCRIPTION_GET_CATEGORY_BY_NAME;
+import static com.pragma.emason.infrastructure.util.ApiDocumentationConstants.RESPONSE_404_DESCRIPTION_CATEGORY;
+import static com.pragma.emason.infrastructure.util.ApiDocumentationConstants.OPERATION_SUMMARY_GET_ALL_CATEGORIES;
+import static com.pragma.emason.infrastructure.util.ApiDocumentationConstants.OPERATION_DESCRIPTION_GET_ALL_CATEGORIES;
+import static com.pragma.emason.infrastructure.util.ApiDocumentationConstants.RESPONSE_200_DESCRIPTION_GET_ALL_CATEGORIES;
+import static com.pragma.emason.infrastructure.util.ApiDocumentationConstants.RESPONSE_400_DESCRIPTION;
+import static com.pragma.emason.infrastructure.util.ApiDocumentationConstants.RESPONSE_500_DESCRIPTION;
+
+
 
 @RestController
 @RequestMapping("/category")
@@ -26,15 +45,13 @@ public class CategoryRestController {
     private final ICategoryHandler iCategoryHandler;
 
 
-    //http://localhost:8090/swagger-ui.html
 
-    @Operation(summary = "Save a new category",
-            description = "Creates a new category and saves it to the database.")
+    @Operation(summary = OPERATION_SUMMARY_SAVE_CATEGORY, description = OPERATION_DESCRIPTION_SAVE_CATEGORY)
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Category successfully created"),
-            @ApiResponse(responseCode = "400", description = "Invalid request data",
+            @ApiResponse(responseCode = STATUS_201, description = RESPONSE_201_DESCRIPTION_SAVE_CATEGORY),
+            @ApiResponse(responseCode = STATUS_400, description = RESPONSE_400_DESCRIPTION,
                     content = @Content),
-            @ApiResponse(responseCode = "500", description = "Internal server error",
+            @ApiResponse(responseCode = STATUS_500, description = RESPONSE_500_DESCRIPTION,
                     content = @Content)
     })
     @PostMapping
@@ -46,14 +63,13 @@ public class CategoryRestController {
 
 
 
-    @Operation(summary = "Get a category by name",
-            description = "Fetches the details of a specific category by its name.")
+    @Operation(summary = OPERATION_SUMMARY_GET_CATEGORY_BY_NAME, description = OPERATION_DESCRIPTION_GET_CATEGORY_BY_NAME)
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Category found",
+            @ApiResponse(responseCode = STATUS_200, description = RESPONSE_200_DESCRIPTION_GET_CATEGORY_BY_NAME,
                     content = @Content(schema = @Schema(implementation = CategoryResponseDTO.class))),
-            @ApiResponse(responseCode = "404", description = "Category not found",
+            @ApiResponse(responseCode = STATUS_404, description = RESPONSE_404_DESCRIPTION_CATEGORY,
                     content = @Content),
-            @ApiResponse(responseCode = "500", description = "Internal server error",
+            @ApiResponse(responseCode = STATUS_500, description = RESPONSE_500_DESCRIPTION,
                     content = @Content)
     })
     @GetMapping("/{name}")
@@ -63,14 +79,13 @@ public class CategoryRestController {
 
 
 
-    @Operation(summary = "Get all categories with pagination and sorting",
-            description = "Fetches all categories with optional pagination and sorting parameters.")
+    @Operation(summary = OPERATION_SUMMARY_GET_ALL_CATEGORIES, description = OPERATION_DESCRIPTION_GET_ALL_CATEGORIES)
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Categories retrieved successfully",
+            @ApiResponse(responseCode = STATUS_200, description = RESPONSE_200_DESCRIPTION_GET_ALL_CATEGORIES,
                     content = @Content(schema = @Schema(implementation = PageResult.class))),
-            @ApiResponse(responseCode = "400", description = "Invalid pagination or sorting parameters",
+            @ApiResponse(responseCode = STATUS_400, description = RESPONSE_400_DESCRIPTION,
                     content = @Content),
-            @ApiResponse(responseCode = "500", description = "Internal server error",
+            @ApiResponse(responseCode = STATUS_500, description = RESPONSE_500_DESCRIPTION,
                     content = @Content)
     })
     @GetMapping("/getAll")
