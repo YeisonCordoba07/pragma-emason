@@ -1,6 +1,6 @@
 package com.pragma.emason.domain.usecase;
 
-import com.pragma.emason.application.dto.ItemResponseDTO;
+
 import com.pragma.emason.domain.api.IItemService;
 import com.pragma.emason.domain.model.Brand;
 import com.pragma.emason.domain.model.Category;
