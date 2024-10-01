@@ -1,5 +1,6 @@
 package com.pragma.emason.domain.usecase;
 
+import com.pragma.emason.application.dto.ItemResponseDTO;
 import com.pragma.emason.domain.api.IItemService;
 import com.pragma.emason.domain.model.Brand;
 import com.pragma.emason.domain.model.Category;
@@ -65,5 +66,19 @@ public class ItemUseCase implements IItemService {
     public PageResult<Item> getAllItems(int page, int size, String sortBy, String table, boolean ascending) {
 
         return iItemPersistence.getAllItems(page, size, sortBy, table, ascending);
+    }
+
+    @Override
+    public Item getItemById(Integer id) {
+        return iItemPersistence.getItemById(id);
+    }
+
+    @Override
+    public void increaseItem(Integer id, Integer increase) {
+
+        Item item = getItemById(id);
+        item.setQuantity(item.getQuantity() + increase);
+        iItemPersistence.saveItem(item);
+
     }
 }

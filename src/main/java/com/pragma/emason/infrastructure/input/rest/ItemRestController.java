@@ -3,6 +3,7 @@ package com.pragma.emason.infrastructure.input.rest;
 import com.pragma.emason.application.dto.ItemRequestDTO;
 import com.pragma.emason.application.dto.ItemResponseDTO;
 import com.pragma.emason.application.handler.IItemHandler;
+import com.pragma.emason.application.handler.feign.SupplyFeignClient;
 import com.pragma.emason.domain.model.PageResult;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -24,6 +25,8 @@ import org.springframework.web.bind.annotation.*;
 @Validated
 public class ItemRestController {
     private final IItemHandler iItemHandler;
+    //private final SupplyFeignClient supplyFeignClient;
+
 
     @Operation(summary = "Save a new item", description = "This endpoint allows saving a new item in the database.")
     @ApiResponses(value = {
@@ -80,5 +83,18 @@ public class ItemRestController {
             @RequestParam boolean ascending)
     {
         return ResponseEntity.ok(iItemHandler.getAllItems(page, size, sortBy, table, ascending));
+    }
+
+
+    @PatchMapping("/{id}/{increase}")
+    public ResponseEntity<Void> patchCategory(
+            @PathVariable Integer id,
+            @PathVariable Integer increase) {
+
+        // Llamar al servicio para actualizar la categoría de manera parcial
+        iItemHandler.increaseItem(id, increase);
+
+        // Devolver la categoría actualizada
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }

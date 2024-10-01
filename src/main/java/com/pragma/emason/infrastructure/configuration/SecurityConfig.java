@@ -32,8 +32,8 @@ public class SecurityConfig {
                         authorizeRequests
 
                                 .requestMatchers(ApiDocumentationConstants.CATEGORY_PATH).hasAuthority(ApiDocumentationConstants.AUTHORITY_ADMIN)
-                                .requestMatchers(ApiDocumentationConstants.BRAND_PATH).hasAuthority(ApiDocumentationConstants.AUTHORITY_CLIENTE)
-                                .requestMatchers(ApiDocumentationConstants.ITEM_PATH).permitAll()
+                                .requestMatchers(ApiDocumentationConstants.BRAND_PATH).hasAuthority(ApiDocumentationConstants.AUTHORITY_ADMIN)
+                                .requestMatchers(ApiDocumentationConstants.ITEM_PATH).hasAuthority(ApiDocumentationConstants.AUTHORITY_AUX_BODEGA)
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(sessionManagement ->

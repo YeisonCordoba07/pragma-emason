@@ -7,4 +7,6 @@ public interface IItemPersistence {
     void saveItem(Item item);
 
     PageResult<Item> getAllItems(int page, int size, String sortBy, String table, boolean ascending);
+
+    Item getItemById(Integer id);
 }

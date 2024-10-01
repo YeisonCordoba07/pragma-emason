@@ -46,4 +46,11 @@ public class ItemHandler implements IItemHandler {
                 item.getTotalElements());
 
     }
+
+
+
+    @Override
+    public void increaseItem(Integer id, Integer increase) {
+        iItemService.increaseItem(id, increase);
+    }
 }

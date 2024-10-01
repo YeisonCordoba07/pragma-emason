@@ -12,6 +12,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
+import java.util.Optional;
+
 @RequiredArgsConstructor
 public class ItemJpaAdapter implements IItemPersistence {
     private final IItemRepository iItemRepository;
@@ -43,5 +45,12 @@ public class ItemJpaAdapter implements IItemPersistence {
                 pageList.getSize(),
                 pageList.getTotalElements()
         );
+    }
+
+    @Override
+    public Item getItemById(Integer id) {
+
+        Optional<ItemEntity> itemEntity = iItemRepository.findById(id);
+        return itemEntity.map(iItemEntityMapper::toItem).orElse(null);
     }
 }

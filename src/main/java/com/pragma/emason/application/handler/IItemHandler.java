@@ -10,4 +10,5 @@ public interface IItemHandler {
     PageResult<ItemResponseDTO> getAllItems(int page, int size, String sortBy, String table, boolean ascending);
 
 
+    void increaseItem(Integer id, Integer increase);
 }
