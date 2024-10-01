@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/item")
 @RequiredArgsConstructor
 @Validated
+@CrossOrigin(origins = {"http://localhost:8081", "http://localhost:8082"})
 public class ItemRestController {
     private final IItemHandler iItemHandler;
     //private final SupplyFeignClient supplyFeignClient;
@@ -86,8 +87,8 @@ public class ItemRestController {
     }
 
 
-    @PatchMapping("/{id}/{increase}")
-    public ResponseEntity<Void> patchCategory(
+    @PutMapping("/{id}/{increase}")
+    public ResponseEntity<Void> increaseItem(
             @PathVariable Integer id,
             @PathVariable Integer increase) {
 
